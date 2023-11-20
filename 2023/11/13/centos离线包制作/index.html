@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/meow.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.css" integrity="sha256-RvRHGSuWAxZpXKV9lLDt2e+rZ+btzn48Wp4ueS3NZKs=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ndohe.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="centos离线包制作+docker安装陈谊桦+第一次作业+20231114 (yuque.com)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos离线包制作">
+<meta property="og:url" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/index.html">
+<meta property="og:site_name" content="熹有长庚夜有雾">
+<meta property="og:description" content="centos离线包制作+docker安装陈谊桦+第一次作业+20231114 (yuque.com)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113170625489.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172251123.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172231486.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114114355749.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150742475.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150800345.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150812438.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150906213.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151134199.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151200106.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151215872.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151404265.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152542284.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152620031.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152658453.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114154145888.png">
+<meta property="article:published_time" content="2023-11-13T08:37:22.000Z">
+<meta property="article:modified_time" content="2023-11-20T02:12:38.605Z">
+<meta property="article:author" content="Yaura Chan">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113170625489.png">
+
+
+<link rel="canonical" href="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/","path":"2023/11/13/centos离线包制作/","title":"centos离线包制作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>centos离线包制作 | 熹有长庚夜有雾</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0b3fb3f66d73deb36055ee14c467f91b"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">熹有长庚夜有雾</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东有启明，西有长庚。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C-docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">centos离线包制作+docker安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8docker%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85nmap"><span class="nav-number">1.1.</span> <span class="nav-text">在docker中实现离线安装nmap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDCentOS%E9%95%9C%E5%83%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">下载CentOS镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CDocker%E5%AE%B9%E5%99%A8%E5%B9%B6%E6%98%A0%E5%B0%84%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84-root-tmp%E7%9B%AE%E5%BD%95%E5%88%B0%E5%AE%B9%E5%99%A8%E5%86%85%E7%9A%84-tmp-tmp1%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E5%AE%B9%E5%99%A8%E5%86%85%E6%9B%B4%E6%96%B0%E6%BA%90"><span class="nav-number">1.1.4.</span> <span class="nav-text">在容器内更新源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%80%E5%90%AF-yum-%E7%9A%84%E7%BC%93%E5%AD%98%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.5.</span> <span class="nav-text">开启 yum 的缓存功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nmap"><span class="nav-number">1.1.6.</span> <span class="nav-text">安装nmap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%BB%E5%88%B0nmap%E7%9A%84%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%93%E5%8C%85nmap%E5%8C%85"><span class="nav-number">1.1.7.</span> <span class="nav-text">去到nmap的安装目录下打包nmap包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8-tmp-tmp1%E4%B8%8B%E6%96%B0%E5%BB%BAnmap%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">1.1.8.</span> <span class="nav-text">在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%89%93%E5%8C%85%E5%A5%BD%E7%9A%84nmap%E5%8C%85%E7%A7%BB%E5%8A%A8%E5%88%B0-tmp-tmp1-nmap"><span class="nav-number">1.1.9.</span> <span class="nav-text">将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86nmap-tar-gz%E6%96%87%E4%BB%B6%E4%BB%8EDocker%E5%AE%B9%E5%99%A8%E5%A4%8D%E5%88%B6%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%9A%84%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="nav-number">1.1.10.</span> <span class="nav-text">将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%AE%89%E8%A3%85docker"><span class="nav-number">1.2.</span> <span class="nav-text">在linux系统中安装docker</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88%E6%9C%ACdocker-%E5%A6%82%E6%9E%9C%E4%B9%8B%E5%89%8D%E6%B2%A1%E6%9C%89%E8%A3%85%E8%BF%87docker%E5%8F%AF%E4%BB%A5%E5%BF%BD%E7%95%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">卸载旧版本docker(如果之前没有装过docker可以忽略)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-yum-utils-%E5%8C%85"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装 yum-utils 包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%A8%B3%E5%AE%9A%E6%BA%90"><span class="nav-number">1.2.3.</span> <span class="nav-text">配置稳定源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%B8%80%E4%B8%8Byum%E7%BC%93%E5%AD%98"><span class="nav-number">1.2.4.</span> <span class="nav-text">更新一下yum缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker"><span class="nav-number">1.2.5.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="nav-number">1.2.6.</span> <span class="nav-text">验证是否安装成功</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yaura Chan"
+      src="/images/meow.jpg">
+  <p class="site-author-name" itemprop="name">Yaura Chan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ndohe.github.io/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/meow.jpg">
+      <meta itemprop="name" content="Yaura Chan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="centos离线包制作 | 熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          centos离线包制作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-13 16:37:22" itemprop="dateCreated datePublished" datetime="2023-11-13T16:37:22+08:00">2023-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-20 10:12:38" itemprop="dateModified" datetime="2023-11-20T10:12:38+08:00">2023-11-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="centos离线包制作-docker安装"><a href="#centos离线包制作-docker安装" class="headerlink" title="centos离线包制作+docker安装"></a>centos离线包制作+docker安装</h3><p><a target="_blank" rel="noopener" href="https://cubesec.yuque.com/staff-qa9e6n/qiiowe/kzfbwfeylexd9cik">陈谊桦+第一次作业+20231114 (yuque.com)</a></p>
+<span id="more"></span>
+
+<h4 id="在docker中实现离线安装nmap"><a href="#在docker中实现离线安装nmap" class="headerlink" title="在docker中实现离线安装nmap"></a>在docker中实现离线安装nmap</h4><h5 id="下载CentOS镜像"><a href="#下载CentOS镜像" class="headerlink" title="下载CentOS镜像"></a>下载CentOS镜像</h5><h5 id="运行Docker容器并映射宿主机上的-root-tmp目录到容器内的-tmp-tmp1目录"><a href="#运行Docker容器并映射宿主机上的-root-tmp目录到容器内的-tmp-tmp1目录" class="headerlink" title="运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录"></a>运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录</h5><h5 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113170625489.png" class title="image-20231113170625489">
+
+<h5 id="在容器内更新源"><a href="#在容器内更新源" class="headerlink" title="在容器内更新源"></a>在容器内更新源</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172251123.png" class title="image-20231113172251123">
+
+<h5 id="开启-yum-的缓存功能"><a href="#开启-yum-的缓存功能" class="headerlink" title="开启 yum 的缓存功能"></a>开启 yum 的缓存功能</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172231486.png" class title="image-20231113172231486">
+
+<h5 id="安装nmap"><a href="#安装nmap" class="headerlink" title="安装nmap"></a>安装nmap</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114114355749.png" class title="image-20231114114355749">
+
+<h5 id="去到nmap的安装目录下打包nmap包"><a href="#去到nmap的安装目录下打包nmap包" class="headerlink" title="去到nmap的安装目录下打包nmap包"></a>去到nmap的安装目录下打包nmap包</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150742475.png" class title="image-20231114150742475">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150800345.png" class title="image-20231114150800345">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150812438.png" class title="image-20231114150812438">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150906213.png" class title="image-20231114150906213">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151134199.png" class title="image-20231114151134199">
+
+<h5 id="在-tmp-tmp1下新建nmap文件夹"><a href="#在-tmp-tmp1下新建nmap文件夹" class="headerlink" title="在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹"></a>在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹</h5><h5 id="将打包好的nmap包移动到-tmp-tmp1-nmap"><a href="#将打包好的nmap包移动到-tmp-tmp1-nmap" class="headerlink" title="将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap"></a>将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151200106.png" class title="image-20231114151200106">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151215872.png" class title="image-20231114151215872">
+
+<h5 id="将nmap-tar-gz文件从Docker容器复制到宿主机的根目录下"><a href="#将nmap-tar-gz文件从Docker容器复制到宿主机的根目录下" class="headerlink" title="将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下"></a>将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151404265.png" class title="image-20231114151404265">
+
+<h4 id="在linux系统中安装docker"><a href="#在linux系统中安装docker" class="headerlink" title="在linux系统中安装docker"></a>在linux系统中安装docker</h4><h5 id="卸载旧版本docker-如果之前没有装过docker可以忽略"><a href="#卸载旧版本docker-如果之前没有装过docker可以忽略" class="headerlink" title="卸载旧版本docker(如果之前没有装过docker可以忽略)"></a>卸载旧版本docker(如果之前没有装过docker可以忽略)</h5><h5 id="安装-yum-utils-包"><a href="#安装-yum-utils-包" class="headerlink" title="安装 yum-utils 包"></a>安装 yum-utils 包</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152542284.png" class title="image-20231114152542284">
+
+<h5 id="配置稳定源"><a href="#配置稳定源" class="headerlink" title="配置稳定源"></a>配置稳定源</h5><h5 id="更新一下yum缓存"><a href="#更新一下yum缓存" class="headerlink" title="更新一下yum缓存"></a>更新一下yum缓存</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152620031.png" class title="image-20231114152620031">
+
+<h5 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152658453.png" class title="image-20231114152658453">
+
+<h5 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114154145888.png" class title="image-20231114154145888">
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/" rel="prev" title="SQL各种查询用法及优化">
+                  <i class="fa fa-angle-left"></i> SQL各种查询用法及优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yaura Chan</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

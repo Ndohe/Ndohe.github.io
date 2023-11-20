@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/meow.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.css" integrity="sha256-RvRHGSuWAxZpXKV9lLDt2e+rZ+btzn48Wp4ueS3NZKs=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ndohe.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="postgresql全文检索to_tsvector(只搜索正规的词) 作用：解析文档  to_tsvector把一个文本文档解析成记号，把记号缩减成词位，并且返回一个tsvector，它列出了词位以及词位在文档中的位置。文档被根据指定的或默认的文本搜索配置来处理。下面是一个简单例子： 1234SELECT to_tsvector(&amp;#x27;english&amp;#x27;, &amp;#x27;a fat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="postgresql全文检索">
+<meta property="og:url" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/index.html">
+<meta property="og:site_name" content="熹有长庚夜有雾">
+<meta property="og:description" content="postgresql全文检索to_tsvector(只搜索正规的词) 作用：解析文档  to_tsvector把一个文本文档解析成记号，把记号缩减成词位，并且返回一个tsvector，它列出了词位以及词位在文档中的位置。文档被根据指定的或默认的文本搜索配置来处理。下面是一个简单例子： 1234SELECT to_tsvector(&amp;#x27;english&amp;#x27;, &amp;#x27;a fat">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628102548367.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628102740319.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628103316394.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628164606367.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628164414210.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628170402598.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628171247204.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628165812112.png">
+<meta property="article:published_time" content="2023-06-28T01:17:32.000Z">
+<meta property="article:modified_time" content="2023-11-09T01:25:36.013Z">
+<meta property="article:author" content="Yaura Chan">
+<meta property="article:tag" content="学习计划">
+<meta property="article:tag" content="PostgreSQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628102548367.png">
+
+
+<link rel="canonical" href="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/","path":"2023/06/28/postgresql全文检索/","title":"postgresql全文检索"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>postgresql全文检索 | 熹有长庚夜有雾</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0b3fb3f66d73deb36055ee14c467f91b"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">熹有长庚夜有雾</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东有启明，西有长庚。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">postgresql全文检索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#to-tsvector-%E5%8F%AA%E6%90%9C%E7%B4%A2%E6%AD%A3%E8%A7%84%E7%9A%84%E8%AF%8D"><span class="nav-number">1.1.</span> <span class="nav-text">to_tsvector(只搜索正规的词)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#to-tsquery-%E6%AD%A3%E8%A7%84"><span class="nav-number">1.2.</span> <span class="nav-text">to_tsquery(正规)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">@@</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ts-rank"><span class="nav-number">1.4.</span> <span class="nav-text">ts_rank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%90%9C%E7%B4%A2%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.5.</span> <span class="nav-text">文本搜索操作符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">2.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yaura Chan"
+      src="/images/meow.jpg">
+  <p class="site-author-name" itemprop="name">Yaura Chan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ndohe.github.io/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/meow.jpg">
+      <meta itemprop="name" content="Yaura Chan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="postgresql全文检索 | 熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          postgresql全文检索
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-06-28 09:17:32" itemprop="dateCreated datePublished" datetime="2023-06-28T09:17:32+08:00">2023-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-09 09:25:36" itemprop="dateModified" datetime="2023-11-09T09:25:36+08:00">2023-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="postgresql全文检索"><a href="#postgresql全文检索" class="headerlink" title="postgresql全文检索"></a>postgresql全文检索</h3><h4 id="to-tsvector-只搜索正规的词"><a href="#to-tsvector-只搜索正规的词" class="headerlink" title="to_tsvector(只搜索正规的词)"></a>to_tsvector(只搜索正规的词)</h4><ul>
+<li>作用：解析文档</li>
+</ul>
+<p><code>to_tsvector</code>把一个文本文档解析成记号，把记号缩减成词位，并且返回一个<code>tsvector</code>，它列出了词位以及词位在文档中的位置。文档被根据指定的或默认的文本搜索配置来处理。下面是一个简单例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> to_tsvector(<span class="string">&#x27;english&#x27;</span>, <span class="string">&#x27;a fat  cat sat on a mat - it ate a fat rats&#x27;</span>);</span><br><span class="line">                  to_tsvector</span><br><span class="line"><span class="comment">-----------------------------------------------------</span></span><br><span class="line"> <span class="string">&#x27;ate&#x27;</span>:<span class="number">9</span> <span class="string">&#x27;cat&#x27;</span>:<span class="number">3</span> <span class="string">&#x27;fat&#x27;</span>:<span class="number">2</span>,<span class="number">11</span> <span class="string">&#x27;mat&#x27;</span>:<span class="number">7</span> <span class="string">&#x27;rat&#x27;</span>:<span class="number">12</span> <span class="string">&#x27;sat&#x27;</span>:<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面这个例子中我们看到，作为结果的<code>tsvector</code>不包含词<code>a</code>、<code>on</code>或<code>it</code>，词<code>rats</code>变成了<code>rat</code>，并且标点符号<code>-</code>被忽略了。</p>
+<span id="more"></span>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;y:1A a:2B,5B r:4D u:3C&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628102548367.png" class title="image-20230628102548367">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> to_tsvector(<span class="string">&#x27;english&#x27;</span>, <span class="string">&#x27;The Fat Rats&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> to_tsvector(<span class="string">&#x27;english&#x27;</span>, <span class="string">&#x27;yaura is a beauty&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628102740319.png" class title="image-20230628102740319">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;yaura is a beauty&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628103316394.png" class title="image-20230628103316394">
+
+<h4 id="to-tsquery-正规"><a href="#to-tsquery-正规" class="headerlink" title="to_tsquery(正规)"></a>to_tsquery(正规)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_tsquery(<span class="string">&#x27;FAt:ab &amp; caTs&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628164606367.png" class title="image-20230628164606367">
+
+<h4 id><a href="#" class="headerlink" title="@@"></a>@@</h4><ul>
+<li>作用：将查询与文档匹配 返回真或假</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;postgreduate&#x27;</span>) @@ to_tsquery(<span class="string">&#x27;postgres:*&#x27;</span>);</span><br><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;postgresduate&#x27;</span>) @@ to_tsquery(<span class="string">&#x27;postgres:*&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628164414210.png" class title="image-20230628164414210">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;yaura&#x27;</span>)@<span class="variable">@to_tsquery</span>(<span class="string">&#x27;beauty&#x27;</span>);</span><br><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;yaura is a beauty&#x27;</span>)@<span class="variable">@to_tsquery</span>(<span class="string">&#x27;beauty&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628170402598.png" class title="image-20230628170402598">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;yaura is a beauty&#x27;</span>)@@ <span class="string">&#x27;yaura &amp; is &amp; (a | beauty)&#x27;</span>::tsquery;</span><br><span class="line"><span class="keyword">select</span> to_tsvector(<span class="string">&#x27;yaura is a beauty&#x27;</span>)@@ <span class="string">&#x27;yaura &amp; !is &amp; (a | beauty)&#x27;</span>::tsquery;</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628171247204.png" class title="image-20230628171247204">
+
+<h4 id="ts-rank"><a href="#ts-rank" class="headerlink" title="ts_rank"></a>ts_rank</h4><ul>
+<li>作用：衡量文档与特定查询的相关程度</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ts_rank(</span><br><span class="line">to_tsvector(<span class="string">&#x27;yaura is a beauty&#x27;</span>),</span><br><span class="line">to_tsquery(<span class="string">&#x27;yaura&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<img data-src="/2023/06/28/postgresql%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/image-20230628165812112.png" class title="image-20230628165812112">
+
+<h4 id="文本搜索操作符"><a href="#文本搜索操作符" class="headerlink" title="文本搜索操作符"></a>文本搜索操作符</h4><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>描述</th>
+<th>例子</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@@</code></td>
+<td><code>tsvector</code>匹配<code>tsquery</code>吗？</td>
+<td><code>to_tsvector(&#39;fat cats ate rats&#39;) @@ to_tsquery(&#39;cat &amp; rat&#39;)</code></td>
+<td><code>t</code></td>
+</tr>
+<tr>
+<td><code>@@@</code></td>
+<td><code>@@</code>的已废弃同义词</td>
+<td><code>to_tsvector(&#39;fat cats ate rats&#39;) @@@ to_tsquery(&#39;cat &amp; rat&#39;)</code></td>
+<td><code>t</code></td>
+</tr>
+<tr>
+<td>&#96;</td>
+<td></td>
+<td>&#96;</td>
+<td>连接<code>tsvector</code></td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>将<code>tsquery</code>用 AND 连接起来</td>
+<td>&#96;’fat</td>
+<td>rat’::tsquery &amp;&amp; ‘cat’::tsquery&#96;</td>
+</tr>
+<tr>
+<td>&#96;</td>
+<td></td>
+<td>&#96;</td>
+<td>将<code>tsquery</code>用 OR 连接起来</td>
+</tr>
+<tr>
+<td><code>!!</code></td>
+<td>对一个<code>tsquery</code>取反</td>
+<td><code>!! &#39;cat&#39;::tsquery</code></td>
+<td><code>!&#39;cat&#39;</code></td>
+</tr>
+<tr>
+<td><code>@&gt;</code></td>
+<td><code>tsquery</code>包含另一个？</td>
+<td><code>&#39;cat&#39;::tsquery @&gt; &#39;cat &amp; rat&#39;::tsquery</code></td>
+<td><code>f</code></td>
+</tr>
+<tr>
+<td><code>&lt;@</code></td>
+<td><code>tsquery</code>被包含？</td>
+<td><code>&#39;cat&#39;::tsquery &lt;@ &#39;cat &amp; rat&#39;::tsquery</code></td>
+<td><code>t</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Note:</strong> <code>tsquery</code>的包含操作符只考虑两个查询中的词位，而忽略组合操作符。</p>
+</blockquote>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a target="_blank" rel="noopener" href="http://www.postgres.cn/docs/10/textsearch-controls.html#TEXTSEARCH-PARSING-DOCUMENTS">12.3. 空值文本搜索 (postgres.cn)</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.postgres.cn/docs/9.3.4/functions-textsearch.html">文本搜索函数和操作符 (postgres.cn)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 学习计划</a>
+              <a href="/tags/PostgreSQL/" rel="tag"><i class="fa fa-tag"></i> PostgreSQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/28/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E8%BF%98%E5%8E%9F/" rel="next" title="postgresql数据库备份和还原">
+                  postgresql数据库备份和还原 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yaura Chan</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/meow.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.css" integrity="sha256-RvRHGSuWAxZpXKV9lLDt2e+rZ+btzn48Wp4ueS3NZKs=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ndohe.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SQL各种查询用法参考链接： MySQL查询语句大全（列举所有常用查询方式）_mysql查询所有数据query-CSDN博客 SQL语句——查询_sql语句包含查询_HMTT的博客-CSDN博客 MySQL索引普通索引创建索引1234CREATE INDEX index_nameON table_name (column1 [ASC|DESC], column2 [ASC|DESC], ...);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL各种查询用法及优化">
+<meta property="og:url" content="https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="熹有长庚夜有雾">
+<meta property="og:description" content="SQL各种查询用法参考链接： MySQL查询语句大全（列举所有常用查询方式）_mysql查询所有数据query-CSDN博客 SQL语句——查询_sql语句包含查询_HMTT的博客-CSDN博客 MySQL索引普通索引创建索引1234CREATE INDEX index_nameON table_name (column1 [ASC|DESC], column2 [ASC|DESC], ...);">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzE1OTUyMTAz,size_16,color_FFFFFF,t_70.png">
+<meta property="og:image" content="https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzE1OTUyMTAz,size_16,color_FFFFFF,t_70-16994923065872.png">
+<meta property="article:published_time" content="2023-11-06T07:35:58.000Z">
+<meta property="article:modified_time" content="2023-11-09T01:54:56.480Z">
+<meta property="article:author" content="Yaura Chan">
+<meta property="article:tag" content="学习计划">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzE1OTUyMTAz,size_16,color_FFFFFF,t_70.png">
+
+
+<link rel="canonical" href="https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/","path":"2023/11/06/SQL各种查询用法及优化/","title":"SQL各种查询用法及优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SQL各种查询用法及优化 | 熹有长庚夜有雾</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0b3fb3f66d73deb36055ee14c467f91b"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">熹有长庚夜有雾</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东有启明，西有长庚。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">SQL各种查询用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">MySQL索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.</span> <span class="nav-text">普通索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.1.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%BB%93%E6%9E%84-%E6%B7%BB%E5%8A%A0%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.2.</span> <span class="nav-text">修改表结构(添加索引)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E7%9A%84%E6%97%B6%E5%80%99%E7%9B%B4%E6%8E%A5%E6%8C%87%E5%AE%9A"><span class="nav-number">2.1.3.</span> <span class="nav-text">创建表的时候直接指定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.4.</span> <span class="nav-text">删除索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.</span> <span class="nav-text">唯一索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.2.</span> <span class="nav-text">修改表结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E7%9A%84%E6%97%B6%E5%80%99%E7%9B%B4%E6%8E%A5%E6%8C%87%E5%AE%9A-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">创建表的时候直接指定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8ALTER-%E5%91%BD%E4%BB%A4%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">2.3.</span> <span class="nav-text">使用ALTER 命令添加和删除索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ALTER-%E5%91%BD%E4%BB%A4%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E4%B8%BB%E9%94%AE"><span class="nav-number">2.4.</span> <span class="nav-text">使用 ALTER 命令添加和删除主键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E7%B4%A2%E5%BC%95%E4%BF%A1%E6%81%AF"><span class="nav-number">2.5.</span> <span class="nav-text">显示索引信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E8%A7%86%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">MySQL视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="nav-number">3.1.</span> <span class="nav-text">创建视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%9D%83%E9%99%90"><span class="nav-number">3.1.1.</span> <span class="nav-text">查看创建视图的权限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A7%86%E5%9B%BE"><span class="nav-number">3.2.</span> <span class="nav-text">修改视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE"><span class="nav-number">3.3.</span> <span class="nav-text">删除视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A7%86%E5%9B%BE"><span class="nav-number">3.4.</span> <span class="nav-text">查看视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E7%BB%83%E4%B9%A0"><span class="nav-number">3.5.</span> <span class="nav-text">视图练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">MySQL数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">数值类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">日期和时间类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">字符串类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">MySQL数据库优化</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yaura Chan"
+      src="/images/meow.jpg">
+  <p class="site-author-name" itemprop="name">Yaura Chan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ndohe.github.io/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/meow.jpg">
+      <meta itemprop="name" content="Yaura Chan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SQL各种查询用法及优化 | 熹有长庚夜有雾">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL各种查询用法及优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-06 15:35:58" itemprop="dateCreated datePublished" datetime="2023-11-06T15:35:58+08:00">2023-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-09 09:54:56" itemprop="dateModified" datetime="2023-11-09T09:54:56+08:00">2023-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="SQL各种查询用法"><a href="#SQL各种查询用法" class="headerlink" title="SQL各种查询用法"></a>SQL各种查询用法</h2><p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42534026/article/details/105951000">MySQL查询语句大全（列举所有常用查询方式）_mysql查询所有数据query-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42464569/article/details/112249866">SQL语句——查询_sql语句包含查询_HMTT的博客-CSDN博客</a></p>
+<h2 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h2><h3 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h3><h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX index_name</span><br><span class="line"><span class="keyword">ON</span> table_name (column1 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], column2 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], ...);</span><br><span class="line">#例子：</span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_name <span class="keyword">ON</span> students (name);</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="修改表结构-添加索引"><a href="#修改表结构-添加索引" class="headerlink" title="修改表结构(添加索引)"></a>修改表结构(添加索引)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">ADD</span> INDEX index_name (column1 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], column2 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], ...);</span><br><span class="line">#例子：</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees</span><br><span class="line"><span class="keyword">ADD</span> INDEX idx_age (age);</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建表的时候直接指定"><a href="#创建表的时候直接指定" class="headerlink" title="创建表的时候直接指定"></a>创建表的时候直接指定</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (</span><br><span class="line">  column1 data_type,</span><br><span class="line">  column2 data_type,</span><br><span class="line">  ...,</span><br><span class="line">  INDEX index_name (column1 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], column2 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], ...)</span><br><span class="line">);</span><br><span class="line">#例子：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students (</span><br><span class="line">  id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  age <span class="type">INT</span>,</span><br><span class="line">  INDEX idx_age (age)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> INDEX index_name <span class="keyword">ON</span> table_name;</span><br><span class="line">#使用 <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 语句删除索引的语法如下：</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DROP</span> INDEX index_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><h4 id="创建索引-1"><a href="#创建索引-1" class="headerlink" title="创建索引"></a>创建索引</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> INDEX index_name</span><br><span class="line"><span class="keyword">ON</span> table_name (column1 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], column2 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], ...);</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改表结构"><a href="#修改表结构" class="headerlink" title="修改表结构"></a>修改表结构</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">table</span> mytable <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> [indexName] (columnName(length))</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建表的时候直接指定-1"><a href="#创建表的时候直接指定-1" class="headerlink" title="创建表的时候直接指定"></a>创建表的时候直接指定</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (</span><br><span class="line">  column1 data_type,</span><br><span class="line">  column2 data_type,</span><br><span class="line">  ...,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> index_name <span class="keyword">UNIQUE</span> (column1 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], column2 [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>], ...)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用ALTER-命令添加和删除索引"><a href="#使用ALTER-命令添加和删除索引" class="headerlink" title="使用ALTER 命令添加和删除索引"></a>使用ALTER 命令添加和删除索引</h3><p>有四种方式来添加数据表的索引：</p>
+<ul>
+<li>**ALTER TABLE tbl_name ADD PRIMARY KEY (column_list):**该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL。</li>
+<li><strong>ALTER TABLE tbl_name ADD UNIQUE index_name (column_list):</strong> 这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）。</li>
+<li><strong>ALTER TABLE tbl_name ADD INDEX index_name (column_list):</strong> 添加普通索引，索引值可出现多次。</li>
+<li>**ALTER TABLE tbl_name ADD FULLTEXT index_name (column_list):**该语句指定了索引为 FULLTEXT ，用于全文索引。</li>
+</ul>
+<p>以下实例为在表中添加索引。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">ADD</span> INDEX (c);</span><br></pre></td></tr></table></figure>
+
+<p>你还可以在 ALTER 命令中使用 DROP 子句来删除索引。尝试以下实例删除索引:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">DROP</span> INDEX c;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-ALTER-命令添加和删除主键"><a href="#使用-ALTER-命令添加和删除主键" class="headerlink" title="使用 ALTER 命令添加和删除主键"></a>使用 ALTER 命令添加和删除主键</h3><p>主键作用于列上（可以一个列或多个列联合主键），添加主键索引时，你需要确保该主键默认不为空（NOT NULL）。实例如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl MODIFY i <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">ADD</span> <span class="keyword">PRIMARY</span> KEY (i);</span><br></pre></td></tr></table></figure>
+
+<p>你也可以使用 ALTER 命令删除主键：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">DROP</span> <span class="keyword">PRIMARY</span> KEY;</span><br></pre></td></tr></table></figure>
+
+<p>删除主键时只需指定PRIMARY KEY，但在删除索引时，你必须知道索引名。</p>
+<h3 id="显示索引信息"><a href="#显示索引信息" class="headerlink" title="显示索引信息"></a>显示索引信息</h3><p>你可以使用 <strong>SHOW INDEX</strong> 命令来列出表中的相关的索引信息。</p>
+<p>可以通过添加 <strong>\G</strong> 来格式化输出信息。</p>
+<p><strong>SHOW INDEX</strong> 语句：:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SHOW</span> INDEX <span class="keyword">FROM</span> table_name\G</span><br><span class="line">........</span><br></pre></td></tr></table></figure>
+
+<p>执行上述命令后，将会显示指定表中所有索引的详细信息，包括索引名称（Key_name）、索引列（Column_name）、是否是唯一索引（Non_unique）、排序方式（Collation）、索引的基数（Cardinality）等。</p>
+<h2 id="MySQL视图"><a href="#MySQL视图" class="headerlink" title="MySQL视图"></a>MySQL视图</h2><h3 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h3><p>创建视图是指在已经存在的数据库表上建立视图。视图可以建立在一张表中，也可以建立在多张表中。</p>
+<h4 id="查看创建视图的权限"><a href="#查看创建视图的权限" class="headerlink" title="查看创建视图的权限"></a>查看创建视图的权限</h4><p>创建视图需要具有CREATE VIEW的权限。同时应该具有查询涉及的列的SELECT权限。可以使用SELECT语句来查询这些权限信息。查询语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Select_priv,Create_view_priv <span class="keyword">FROM</span> mysql.user <span class="keyword">WHERE</span> <span class="keyword">user</span><span class="operator">=</span><span class="string">&#x27;用户名&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<p>（1）Select_priv：属性表示用户是否具有SELECT权限，Y表示拥有SELECT权限，N表示没有。</p>
+<p>（2）Create_view_priv：属性表示用户是否具有CREATE VIEW权限；</p>
+<p>（3）mysql.user：表示MySQL数据库下面的user表。</p>
+<p>（4）用户名：参数表示要查询是否拥有权限的用户，该参数需要用单引号引起来。</p>
+<p>示例：查询MySQL中root用户是否具有创建视图的权限。</p>
+<p>MySQL中，创建视图是通过CREATE VIEW语句实现的。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [<span class="keyword">OR</span> REPLACE] [ALGORITHM<span class="operator">=</span>&#123;UNDEFINED<span class="operator">|</span><span class="keyword">MERGE</span><span class="operator">|</span>TEMPTABLE&#125;]</span><br><span class="line"><span class="keyword">VIEW</span> 视图名[(属性清单)]</span><br><span class="line"><span class="keyword">AS</span> <span class="keyword">SELECT</span>语句</span><br><span class="line">[<span class="keyword">WITH</span> [<span class="keyword">CASCADED</span><span class="operator">|</span><span class="keyword">LOCAL</span>] <span class="keyword">CHECK</span> OPTION];</span><br></pre></td></tr></table></figure>
+
+
+<p>参数说明：</p>
+<p>（1）ALGORITHM：可选项，表示视图选择的算法。</p>
+<p>（2）视图名：表示要创建的视图名称。</p>
+<p>（3）属性清单：可选项，指定视图中各个属性的名词，默认情况下与SELECT语句中的查询的属性相同。</p>
+<p>（4）SELECT语句：表示一个完整的查询语句，将查询记录导入视图中。</p>
+<p>（5）WITH CHECK OPTION：可选项，表示更新视图时要保证在该视图的权限范围之内。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#例：创建视图。</span><br><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">VIEW</span> view_student <span class="keyword">AS</span> <span class="keyword">SELECT</span> id,name,class <span class="keyword">FROM</span> student;</span><br><span class="line">#例：创建视图同时，指定属性清单。</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view_student1(stu_id,stu_name,stu_class) <span class="keyword">AS</span> <span class="keyword">SELECT</span> id,name,class <span class="keyword">FROM</span> student;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> REPLACE <span class="keyword">VIEW</span> view_student1(stu_id,stu_name,stu_class) <span class="keyword">AS</span> <span class="keyword">SELECT</span> id,name,class <span class="keyword">FROM</span> student;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改视图"><a href="#修改视图" class="headerlink" title="修改视图"></a>修改视图</h3><p>修改视图是指修改数据库中已存在的表的定义。当基本表的某些字段发生改变时，可以通过修改视图来保持视图和基本表之间一致。MySQL中通过CREATE OR REPLACE VIEW语句和ALTER VIEW语句来修改视图。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#示例：修改视图</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">VIEW</span> view_student1 <span class="keyword">AS</span> <span class="keyword">SELECT</span> id,name,class <span class="keyword">FROM</span> student <span class="keyword">where</span> id  <span class="keyword">in</span> (<span class="keyword">select</span> id <span class="keyword">from</span> student );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> view_student1;</span><br></pre></td></tr></table></figure>
+
+<p>说明：ALTER VIEW语句改变了视图的定义，该语句与CREATE OR REPLACE VIEW语句有着同样的限制，如果删除并重新创建一个视图，就必须重新为它分配权限。</p>
+<h3 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h3><p>删除视图是指删除数据库中已存在的视图。删除视图时，只能删除视图的定义，不会删除数据。MySQL中，使用DROP VIEW语句来删除视图。但是，用户必须拥有DROP权限。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#例：删除视图。</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">VIEW</span> IF <span class="keyword">EXISTS</span> view_student;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看视图"><a href="#查看视图" class="headerlink" title="查看视图"></a>查看视图</h3><p>查看视图是指查看数据库中已存在的视图的定义。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#例：查看视图。</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">describe</span> view_student;</span><br></pre></td></tr></table></figure>
+
+<h3 id="视图练习"><a href="#视图练习" class="headerlink" title="视图练习"></a>视图练习</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#员工表和数据：</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employee(  </span><br><span class="line">        ID <span class="type">INT</span>  <span class="keyword">PRIMARY</span> KEY  AUTO_INCREMENT,  </span><br><span class="line">        NAME <span class="type">CHAR</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,  </span><br><span class="line">        SEX  <span class="type">CHAR</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,  </span><br><span class="line">        AGE <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,  </span><br><span class="line">        DEPARTMENT <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,  </span><br><span class="line">        SALARY  <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,  </span><br><span class="line">        HOME <span class="type">CHAR</span>(<span class="number">30</span>),  </span><br><span class="line">        MARRY <span class="type">CHAR</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span>  <span class="string">&#x27;否&#x27;</span>,         </span><br><span class="line">        HOBBY <span class="type">CHAR</span>(<span class="number">30</span>)  </span><br><span class="line"> ); </span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;李红&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,<span class="number">20</span>,<span class="string">&#x27;人事资源部&#x27;</span>,<span class="string">&#x27;7000&#x27;</span>,<span class="string">&#x27;浙江&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;网球&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;姜文&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,<span class="number">21</span>,<span class="string">&#x27;人事资源部&#x27;</span>,<span class="string">&#x27;9000&#x27;</span>,<span class="string">&#x27;北京&#x27;</span>,<span class="string">&#x27;是&#x27;</span>,<span class="string">&#x27;看书&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;李楠&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">22</span>,<span class="string">&#x27;产品研发部&#x27;</span>,<span class="string">&#x27;8000&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;音乐&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;潇潇&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,<span class="number">23</span>,<span class="string">&#x27;产品研发部&#x27;</span>,<span class="string">&#x27;9000&#x27;</span>,<span class="string">&#x27;重庆&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;游泳&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;王亮&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,<span class="number">24</span>,<span class="string">&#x27;产品研发部&#x27;</span>,<span class="string">&#x27;9000&#x27;</span>,<span class="string">&#x27;四川&#x27;</span>,<span class="string">&#x27;是&#x27;</span>,<span class="string">&#x27;足球&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;程默&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">25</span>,<span class="string">&#x27;业务销售部&#x27;</span>,<span class="string">&#x27;8500&#x27;</span>,<span class="string">&#x27;福建&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;游戏&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;陆明&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">26</span>,<span class="string">&#x27;业务销售部&#x27;</span>,<span class="string">&#x27;10000&#x27;</span>,<span class="string">&#x27;山西&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;篮球&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;韩路&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">26</span>,<span class="string">&#x27;业务销售部&#x27;</span>,<span class="string">&#x27;15000&#x27;</span>,<span class="string">&#x27;江苏&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;足球&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>具体的表内容如下：</p>
+<img data-src="/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzE1OTUyMTAz,size_16,color_FFFFFF,t_70.png" class title="img">
+
+<p>员工信息表和数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employee_detail(</span><br><span class="line">	ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">	POS <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	EXPERENCE <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	<span class="keyword">CONSTRAINT</span> `FK_ID` <span class="keyword">FOREIGN</span> KEY(ID) <span class="keyword">REFERENCES</span> employee(ID)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="string">&#x27;人事管理&#x27;</span>,<span class="string">&#x27;工作二年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">2</span>,<span class="string">&#x27;人事招聘&#x27;</span>,<span class="string">&#x27;工作二年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">3</span>,<span class="string">&#x27;初级工程师&#x27;</span>,<span class="string">&#x27;工作一年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">4</span>,<span class="string">&#x27;中级工程师&#x27;</span>,<span class="string">&#x27;工作二年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">5</span>,<span class="string">&#x27;高级工程师&#x27;</span>,<span class="string">&#x27;工作三年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">6</span>,<span class="string">&#x27;销售代表&#x27;</span>,<span class="string">&#x27;工作二年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">7</span>,<span class="string">&#x27;销售经理&#x27;</span>,<span class="string">&#x27;工作一年&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">8</span>,<span class="string">&#x27;销售总监&#x27;</span>,<span class="string">&#x27;工作一年&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p>具体的表内容如下：</p>
+<img data-src="/2023/11/06/SQL%E5%90%84%E7%A7%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BC%98%E5%8C%96/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzE1OTUyMTAz,size_16,color_FFFFFF,t_70-16994923065872.png" class title="img">
+
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#单表上创建视图:</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> V_VIEW1(ID, NAME, SEX, AGE,DEPARTMENT) <span class="keyword">AS</span> <span class="keyword">SELECT</span> ID, NAME, SEX, AGE,DEPARTMENT <span class="keyword">FROM</span> employee;</span><br><span class="line"></span><br><span class="line">#显示结果</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> V_VIEW1;</span><br><span class="line"></span><br><span class="line">#多表上创建视图:</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> V_VIEW2(ID, NAME, SEX, AGE,DEPARTMENT,POS,EXPERENCE) <span class="keyword">AS</span> <span class="keyword">SELECT</span> a.ID, a.NAME, a.SEX, a.AGE,a.DEPARTMENT,b.POS,b.EXPERENCE <span class="keyword">FROM</span> employee a,employee_detail b <span class="keyword">WHERE</span> a.ID<span class="operator">=</span>b.ID;</span><br><span class="line"></span><br><span class="line">#显示结果</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> V_VIEW2;</span><br><span class="line"></span><br><span class="line">#修改视图中的数据，会影响原有表数据变化，例如：</span><br><span class="line"><span class="keyword">UPDATE</span> V_VIEW2 <span class="keyword">SET</span> POS<span class="operator">=</span><span class="string">&#x27;高级工程师&#x27;</span> <span class="keyword">WHERE</span> NAME<span class="operator">=</span><span class="string">&#x27;李楠&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#修改原始表中的数据，会影响视图的变化，例如：</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee(ID, NAME, SEX, AGE,DEPARTMENT, SALARY, HOME, MARRY, HOBBY) <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;韩寒&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">24</span>,<span class="string">&#x27;产品研发部&#x27;</span>,<span class="string">&#x27;8000&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>,<span class="string">&#x27;否&#x27;</span>,<span class="string">&#x27;音乐&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_detail(ID,POS,EXPERENCE) <span class="keyword">VALUES</span>(<span class="number">9</span>,<span class="string">&#x27;初级工程师&#x27;</span>,<span class="string">&#x27;工作一年&#x27;</span>);</span><br><span class="line"></span><br><span class="line">#显示结果</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> V_VIEW2;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MySQL数据类型"><a href="#MySQL数据类型" class="headerlink" title="MySQL数据类型"></a>MySQL数据类型</h2><p>MySQL 支持多种类型，大致可以分为三类：数值、日期&#x2F;时间和字符串(字符)类型。</p>
+<h3 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h3><p>MySQL 支持所有标准 SQL 数值数据类型。</p>
+<p>这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL 和 NUMERIC)，以及近似数值数据类型(FLOAT、REAL 和 DOUBLE PRECISION)。</p>
+<p>关键字INT是INTEGER的同义词，关键字DEC是DECIMAL的同义词。</p>
+<p>BIT数据类型保存位字段值，并且支持 MyISAM、MEMORY、InnoDB 和 BDB表。</p>
+<p>作为 SQL 标准的扩展，MySQL 也支持整数类型 TINYINT、MEDIUMINT 和 BIGINT。下面的表显示了需要的每个整数类型的存储和范围。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">范围（有符号）</th>
+<th align="left">范围（无符号）</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">TINYINT</td>
+<td align="left">1 Bytes</td>
+<td align="left">(-128，127)</td>
+<td align="left">(0，255)</td>
+<td align="left">小整数值</td>
+</tr>
+<tr>
+<td align="left">SMALLINT</td>
+<td align="left">2 Bytes</td>
+<td align="left">(-32 768，32 767)</td>
+<td align="left">(0，65 535)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">MEDIUMINT</td>
+<td align="left">3 Bytes</td>
+<td align="left">(-8 388 608，8 388 607)</td>
+<td align="left">(0，16 777 215)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">INT或INTEGER</td>
+<td align="left">4 Bytes</td>
+<td align="left">(-2 147 483 648，2 147 483 647)</td>
+<td align="left">(0，4 294 967 295)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">BIGINT</td>
+<td align="left">8 Bytes</td>
+<td align="left">(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td align="left">(0，18 446 744 073 709 551 615)</td>
+<td align="left">极大整数值</td>
+</tr>
+<tr>
+<td align="left">FLOAT</td>
+<td align="left">4 Bytes</td>
+<td align="left">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td align="left">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td align="left">单精度 浮点数值</td>
+</tr>
+<tr>
+<td align="left">DOUBLE</td>
+<td align="left">8 Bytes</td>
+<td align="left">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td align="left">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td align="left">双精度 浮点数值</td>
+</tr>
+<tr>
+<td align="left">DECIMAL</td>
+<td align="left">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td align="left">依赖于M和D的值</td>
+<td align="left">依赖于M和D的值</td>
+<td align="left">小数值</td>
+</tr>
+</tbody></table>
+<h3 id="日期和时间类型"><a href="#日期和时间类型" class="headerlink" title="日期和时间类型"></a>日期和时间类型</h3><p>表示时间值的日期和时间类型为DATETIME、DATE、TIMESTAMP、TIME和YEAR。</p>
+<p>每个时间类型有一个有效值范围和一个”零”值，当指定不合法的MySQL不能表示的值时使用”零”值。</p>
+<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小 ( bytes)</th>
+<th align="left">范围</th>
+<th align="left">格式</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DATE</td>
+<td align="left">3</td>
+<td align="left">1000-01-01&#x2F;9999-12-31</td>
+<td align="left">YYYY-MM-DD</td>
+<td align="left">日期值</td>
+</tr>
+<tr>
+<td align="left">TIME</td>
+<td align="left">3</td>
+<td align="left">‘-838:59:59’&#x2F;‘838:59:59’</td>
+<td align="left">HH:MM:SS</td>
+<td align="left">时间值或持续时间</td>
+</tr>
+<tr>
+<td align="left">YEAR</td>
+<td align="left">1</td>
+<td align="left">1901&#x2F;2155</td>
+<td align="left">YYYY</td>
+<td align="left">年份值</td>
+</tr>
+<tr>
+<td align="left">DATETIME</td>
+<td align="left">8</td>
+<td align="left">‘1000-01-01 00:00:00’ 到 ‘9999-12-31 23:59:59’</td>
+<td align="left">YYYY-MM-DD hh:mm:ss</td>
+<td align="left">混合日期和时间值</td>
+</tr>
+<tr>
+<td align="left">TIMESTAMP</td>
+<td align="left">4</td>
+<td align="left">‘1970-01-01 00:00:01’ UTC 到 ‘2038-01-19 03:14:07’ UTC结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td align="left">YYYY-MM-DD hh:mm:ss</td>
+<td align="left">混合日期和时间值，时间戳</td>
+</tr>
+</tbody></table>
+<h3 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h3><p>字符串类型指CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM和SET。该节描述了这些类型如何工作以及如何在查询中使用这些类型。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CHAR</td>
+<td align="left">0-255 bytes</td>
+<td align="left">定长字符串</td>
+</tr>
+<tr>
+<td align="left">VARCHAR</td>
+<td align="left">0-65535 bytes</td>
+<td align="left">变长字符串</td>
+</tr>
+<tr>
+<td align="left">TINYBLOB</td>
+<td align="left">0-255 bytes</td>
+<td align="left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td align="left">TINYTEXT</td>
+<td align="left">0-255 bytes</td>
+<td align="left">短文本字符串</td>
+</tr>
+<tr>
+<td align="left">BLOB</td>
+<td align="left">0-65 535 bytes</td>
+<td align="left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td align="left">TEXT</td>
+<td align="left">0-65 535 bytes</td>
+<td align="left">长文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMBLOB</td>
+<td align="left">0-16 777 215 bytes</td>
+<td align="left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMTEXT</td>
+<td align="left">0-16 777 215 bytes</td>
+<td align="left">中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGBLOB</td>
+<td align="left">0-4 294 967 295 bytes</td>
+<td align="left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGTEXT</td>
+<td align="left">0-4 294 967 295 bytes</td>
+<td align="left">极大文本数据</td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong>：char(n) 和 varchar(n) 中括号中 n 代表字符的个数，并不代表字节个数，比如 CHAR(30) 就可以存储 30 个字符。</p>
+<p>CHAR 和 VARCHAR 类型类似，但它们保存和检索的方式不同。它们的最大长度和是否尾部空格被保留等方面也不同。在存储或检索过程中不进行大小写转换。</p>
+<p>BINARY 和 VARBINARY 类似于 CHAR 和 VARCHAR，不同的是它们包含二进制字符串而不要非二进制字符串。也就是说，它们包含字节字符串而不是字符字符串。这说明它们没有字符集，并且排序和比较基于列值字节的数值值。</p>
+<p>BLOB 是一个二进制大对象，可以容纳可变数量的数据。有 4 种 BLOB 类型：TINYBLOB、BLOB、MEDIUMBLOB 和 LONGBLOB。它们区别在于可容纳存储范围不同。</p>
+<p>有 4 种 TEXT 类型：TINYTEXT、TEXT、MEDIUMTEXT 和 LONGTEXT。对应的这 4 种 BLOB 类型，可存储的最大长度不同，可根据实际情况选择。</p>
+<h2 id="MySQL数据库优化"><a href="#MySQL数据库优化" class="headerlink" title="MySQL数据库优化"></a>MySQL数据库优化</h2><blockquote>
+<p>以下内容全来自<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangbijun1230/article/details/81608252">MySQL数据库优化的八种方式(经典必看)-CSDN博客</a></p>
+</blockquote>
+<p>1.对查询进行优化，要尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
+<p>2.应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="keyword">is</span> <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p>最好不要给数据库留NULL，尽可能的使用 NOT NULL填充数据库.</p>
+<p>备注、描述、评论之类的可以设置为 NULL，其他的，最好不要使用NULL。</p>
+<p>不要以为 NULL 不需要空间，比如：char(100) 型，在字段建立时，空间就固定了， 不管是否插入值（NULL也包含在内），都是占用 100个字符的空间的，如果是varchar这样的变长字段， null 不占用空间。</p>
+<p>可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="operator">=</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>3.应尽量避免在 where 子句中使用 !&#x3D; 或 &lt;&gt; 操作符，否则将引擎放弃使用索引而进行全表扫描。</p>
+<p>4.应尽量避免在 where 子句中使用 or 来连接条件，如果一个字段有索引，一个字段没有索引，将导致引擎放弃使用索引而进行全表扫描，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">=</span><span class="number">10</span> <span class="keyword">or</span> Name <span class="operator">=</span> <span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以这样查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="operator">=</span> <span class="number">10</span></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> Name <span class="operator">=</span> <span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>5.in 和 not in 也要慎用，否则会导致全表扫描，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>对于连续的数值，能用 between 就不要用 in 了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>很多时候用 exists 代替 in 是一个好的选择：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> num <span class="keyword">from</span> a <span class="keyword">where</span> num <span class="keyword">in</span>(<span class="keyword">select</span> num <span class="keyword">from</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>用下面的语句替换：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> num <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> b <span class="keyword">where</span> num<span class="operator">=</span>a.num)</span><br></pre></td></tr></table></figure>
+
+<p>6.下面的查询也将导致全表扫描：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%abc%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>若要提高效率，可以考虑全文检索。</p>
+<p>7.如果在 where 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="operator">=</span> <span class="variable">@num</span></span><br></pre></td></tr></table></figure>
+
+<p>可以改为强制查询使用索引：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">with</span>(index(索引名)) <span class="keyword">where</span> num <span class="operator">=</span> <span class="variable">@num</span></span><br></pre></td></tr></table></figure>
+
+<p>应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">/</span><span class="number">2</span> <span class="operator">=</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>应改为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="operator">=</span> <span class="number">100</span><span class="operator">*</span><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+<p>9.应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#<span class="comment">--name以abc开头的id</span></span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> <span class="built_in">substring</span>(name,<span class="number">1</span>,<span class="number">3</span>) <span class="operator">=</span> <span class="string">&#x27;abc&#x27;</span></span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> datediff(<span class="keyword">day</span>,createdate,<span class="string">&#x27;2005-11-30&#x27;</span>) <span class="operator">=</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>应改为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;abc%&#x27;</span></span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> createdate <span class="operator">&gt;=</span> <span class="string">&#x27;2005-11-30&#x27;</span> <span class="keyword">and</span> createdate <span class="operator">&lt;</span> <span class="string">&#x27;2005-12-1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>10.不要在 where 子句中的“&#x3D;”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</p>
+<p>11.在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
+<p>12.不要写一些没有意义的查询，如需要生成一个空表结构：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">into</span> #t <span class="keyword">from</span> t <span class="keyword">where</span> <span class="number">1</span><span class="operator">=</span><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：<br>create table #t(…)</p>
+<p>13.Update 语句，如果只更改1、2个字段，不要Update全部字段，否则频繁调用会引起明显的性能消耗，同时带来大量日志。</p>
+<p>14.对于多张大数据量（这里几百条就算大了）的表JOIN，要先分页再JOIN，否则逻辑读会很高，性能很差。</p>
+<p>15.select count(*) from table；这样不带任何条件的count会引起全表扫描，并且没有任何业务意义，是一定要杜绝的。</p>
+<p>16.索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</p>
+<p>17.应尽可能的避免更新 clustered 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</p>
+<p>18.尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</p>
+<p>19.尽可能的使用 varchar&#x2F;nvarchar 代替 char&#x2F;nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</p>
+<p>20.任何地方都不要使用 select * from t ，用具体的字段列表代替“*”，不要返回用不到的任何字段。</p>
+<p>21.尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</p>
+<p>22.避免频繁创建和删除临时表，以减少系统表资源的消耗。临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用表中的某个数据集时。但是，对于一次性事件， 最好使用导出表。</p>
+<p>23.在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。</p>
+<p>24.如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。</p>
+<p>25.尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</p>
+<p>26.使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</p>
+<p>27.与临时表一样，游标并不是不可使用。对小型数据集使用 FAST_FORWARD 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时 间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</p>
+<p>28.在所有的存储过程和触发器的开始处设置 SET NOCOUNT ON ，在结束时设置 SET NOCOUNT OFF 。无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息。</p>
+<p>29.尽量避免大事务操作，提高系统并发能力。</p>
+<p>30.尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</p>
+<p>实际案例分析：拆分大的 DELETE 或INSERT 语句，批量提交SQL语句<br>　　如果你需要在一个在线的网站上去执行一个大的 DELETE 或 INSERT 查询，你需要非常小心，要避免你的操作让你的整个网站停止相应。因为这两个操作是会锁表的，表一锁住了，别的操作都进不来了。<br>　　Apache 会有很多的子进程或线程。所以，其工作起来相当有效率，而我们的服务器也不希望有太多的子进程，线程和数据库链接，这是极大的占服务器资源的事情，尤其是内存。<br>　　如果你把你的表锁上一段时间，比如30秒钟，那么对于一个有很高访问量的站点来说，这30秒所积累的访问进程&#x2F;线程，数据库链接，打开的文件数，可能不仅仅会让你的WEB服务崩溃，还可能会让你的整台服务器马上挂了。<br>　　所以，如果你有一个大的处理，你一定把其拆分，使用 LIMIT oracle(rownum),sqlserver(top)条件是一个好的方法。下面是一个mysql示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line"></span><br><span class="line"> 　　<span class="comment">//每次只做1000条</span></span><br><span class="line"></span><br><span class="line">　　 mysql_query(<span class="string">&quot;delete from logs where log_date &lt;= &#x27;2012-11-01&#x27; limit 1000&quot;</span>);</span><br><span class="line"></span><br><span class="line"> 　　<span class="keyword">if</span>(mysql_affected_rows() == <span class="number">0</span>)&#123;</span><br><span class="line"></span><br><span class="line">　　 　　<span class="comment">//删除完成，退出！</span></span><br><span class="line">　　 　　<span class="keyword">break</span>；</span><br><span class="line">　　&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每次暂停一段时间，释放表让其他进程/线程访问。</span></span><br><span class="line">usleep(<span class="number">50000</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 学习计划</a>
+              <a href="/tags/SQL/" rel="tag"><i class="fa fa-tag"></i> SQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/01/Postgresql%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/" rel="prev" title="Postgresql安装使用与配置数据库访问权限">
+                  <i class="fa fa-angle-left"></i> Postgresql安装使用与配置数据库访问权限
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/" rel="next" title="centos离线包制作">
+                  centos离线包制作 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yaura Chan</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
