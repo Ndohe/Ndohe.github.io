@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSM产品原理</title>
-    <url>/2023/10/07/CSM%E4%BA%A7%E5%93%81%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h3 id="极速模式和标准模式的区别"><a href="#极速模式和标准模式的区别" class="headerlink" title="极速模式和标准模式的区别"></a>极速模式和标准模式的区别</h3><p>极速模式：使用TCP的SYN进行扫描（半开放扫描，只发送SYN，如果服务器回复SYN，ACK。证明端口开放，不建立完整连接）<br>标准模式：使用TCP进行扫描（默认nmap扫描方式，三次握手）</p>
-<h3 id="TCP端口扫描可以分为两类-全连接扫描、半连接扫描"><a href="#TCP端口扫描可以分为两类-全连接扫描、半连接扫描" class="headerlink" title="TCP端口扫描可以分为两类:全连接扫描、半连接扫描"></a>TCP端口扫描可以分为两类:全连接扫描、半连接扫描</h3><h4 id="全连接扫描"><a href="#全连接扫描" class="headerlink" title="全连接扫描"></a>全连接扫描</h4><p>原理:扫描者向目标主机发送一个SYN+SYN&#x2F;ACK数据包，目标主机会回复一个ACK数据包。无法利用scapy模块进行全连接扫描，因为如果同时向目标主机发送一个SYN+SYN&#x2F;ACK数据包，目标主机会认为这是一个错误的数据包，会直接回复一个RST。如果向目标主机发送一个SYN数据包，目标主机会回复一个SYN&#x2F;ACK数据包，但是此时并没有再向目标主机发送ACK数据包，因此，全连接无法建立。(但是可以使用nmap中的-sT参数来进行全连接扫描)<br>优点:探测结果准确<br>缺点:会被目标主机的日志记录</p>
-<h4 id="半连接扫描-也称为隐蔽扫描"><a href="#半连接扫描-也称为隐蔽扫描" class="headerlink" title="半连接扫描(也称为隐蔽扫描)"></a>半连接扫描(也称为隐蔽扫描)</h4><p>原理:扫描者向目标主机发送一个SYN，如果目标主机回复了一个SYN&#x2F;ACK数据包，那么说明主机存活，如果收到一个RST&#x2F;ACK数据包，那么主机没有存活。因为扫描者只向目标主机发送了SYN，并没有和目标主机进行连接，因此称为半连接。<br>优点:不会在目标主机的日志上有所记录<br>缺点:扫描结果不是很准确</p>
-]]></content>
-      <tags>
-        <tag>产品</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Postgresql安装使用与配置数据库访问权限</title>
     <url>/2023/11/01/Postgresql%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90/</url>
     <content><![CDATA[<h3 id="Centos7安装PostgreSQL12记录"><a href="#Centos7安装PostgreSQL12记录" class="headerlink" title="Centos7安装PostgreSQL12记录"></a>Centos7安装PostgreSQL12记录</h3><blockquote>
@@ -225,6 +214,64 @@
       </tags>
   </entry>
   <entry>
+    <title>Tmux使用</title>
+    <url>/2023/07/05/Tmux%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="Tmux使用"><a href="#Tmux使用" class="headerlink" title="Tmux使用"></a>Tmux使用</h2><blockquote>
+<p>参考链接：<a href="https://cloud.tencent.com/developer/article/1526675">可能是东半球最全面易懂的 Tmux 使用教程！( 强烈建议收藏 )-腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+</blockquote>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>tmux</p>
+<h4 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h4><p> ctrl+d或者exit</p>
+<h4 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h4><span id="more"></span>
+
+<h5 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h5><p>tmux new -s 编号或名称</p>
+<h5 id="分离会话"><a href="#分离会话" class="headerlink" title="分离会话"></a>分离会话</h5><p>tmux detach</p>
+<h5 id="查看当前所有的-Tmux-会话"><a href="#查看当前所有的-Tmux-会话" class="headerlink" title="查看当前所有的 Tmux 会话"></a>查看当前所有的 Tmux 会话</h5><p>tmux ls</p>
+<p>或者</p>
+<p>tmux list-session</p>
+<h5 id="接入会话"><a href="#接入会话" class="headerlink" title="接入会话"></a>接入会话</h5><p>tmux attach -t 编号或名称</p>
+<h5 id="杀死会话"><a href="#杀死会话" class="headerlink" title="杀死会话"></a>杀死会话</h5><p>tmux kill-session -t 编号或名称</p>
+<h5 id="切换会话"><a href="#切换会话" class="headerlink" title="切换会话"></a>切换会话</h5><p>tmux switch -t 编号或名称</p>
+<h5 id="重命名会话"><a href="#重命名会话" class="headerlink" title="重命名会话"></a>重命名会话</h5><p>tmux rename-session -t 0 <new-name><br>上面命令将0号会话重命名。</new-name></p>
+<h5 id="会话快捷键"><a href="#会话快捷键" class="headerlink" title="会话快捷键"></a>会话快捷键</h5><ul>
+<li><code>Ctrl+b d</code>：分离当前会话。</li>
+<li><code>Ctrl+b s</code>：列出所有会话。</li>
+<li><code>Ctrl+b $</code>：重命名当前会话。</li>
+</ul>
+<h4 id="窗格管理"><a href="#窗格管理" class="headerlink" title="窗格管理"></a>窗格管理</h4><h5 id="划分上下两个窗格"><a href="#划分上下两个窗格" class="headerlink" title="划分上下两个窗格"></a>划分上下两个窗格</h5><p>tmux split-window</p>
+<h5 id="划分左右两个窗格"><a href="#划分左右两个窗格" class="headerlink" title="划分左右两个窗格"></a>划分左右两个窗格</h5><p>tmux split-window -h</p>
+<h5 id="光标切换到上方窗格"><a href="#光标切换到上方窗格" class="headerlink" title="光标切换到上方窗格"></a>光标切换到上方窗格</h5><p>tmux select-pane -U</p>
+<h5 id="光标切换到下方窗格"><a href="#光标切换到下方窗格" class="headerlink" title="光标切换到下方窗格"></a>光标切换到下方窗格</h5><p>tmux select-pane -D</p>
+<h5 id="光标切换到左边窗格"><a href="#光标切换到左边窗格" class="headerlink" title="光标切换到左边窗格"></a>光标切换到左边窗格</h5><p>tmux select-pane -L</p>
+<h5 id="光标切换到右边窗格"><a href="#光标切换到右边窗格" class="headerlink" title="光标切换到右边窗格"></a>光标切换到右边窗格</h5><p>tmux select-pane -R</p>
+<h5 id="窗格上移"><a href="#窗格上移" class="headerlink" title="窗格上移"></a>窗格上移</h5><p>tmux swap-pane -U</p>
+<h5 id="窗格下移"><a href="#窗格下移" class="headerlink" title="窗格下移"></a>窗格下移</h5><p>tmux swap-pane -D</p>
+<h5 id="窗格快捷键"><a href="#窗格快捷键" class="headerlink" title="窗格快捷键"></a>窗格快捷键</h5><p>Ctrl+b %：划分左右两个窗格。<br>Ctrl+b “：划分上下两个窗格。<br>Ctrl+b <arrow key>：光标切换到其他窗格。<arrow key>是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键↓。<br>Ctrl+b ;：光标切换到上一个窗格。<br>Ctrl+b o：光标切换到下一个窗格。<br>Ctrl+b {：当前窗格与上一个窗格交换位置。<br>Ctrl+b }：当前窗格与下一个窗格交换位置。<br>Ctrl+b Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。<br>Ctrl+b Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。<br>Ctrl+b x：关闭当前窗格。<br>Ctrl+b !：将当前窗格拆分为一个独立窗口。<br>Ctrl+b z：当前窗格全屏显示，再使用一次会变回原来大小。<br>Ctrl+b Ctrl+<arrow key>：按箭头方向调整窗格大小。<br>Ctrl+b q：显示窗格编号。</arrow></arrow></arrow></p>
+<h4 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h4><h5 id="新建窗口"><a href="#新建窗口" class="headerlink" title="新建窗口"></a>新建窗口</h5><p>tmux new-window</p>
+<p>新建一个指定名称的窗口</p>
+<p>tmux new-window -n <window-name></window-name></p>
+<h5 id="切换窗口"><a href="#切换窗口" class="headerlink" title="切换窗口"></a>切换窗口</h5><p>tmux select-window命令用来切换窗口。</p>
+<p>切换到指定编号的窗口</p>
+<p>tmux select-window -t <window-number></window-number></p>
+<p>切换到指定名称的窗口</p>
+<p>tmux select-window -t <window-name></window-name></p>
+<h5 id="重命名窗口"><a href="#重命名窗口" class="headerlink" title="重命名窗口"></a>重命名窗口</h5><p>tmux rename-window命令用于为当前窗口起名（或重命名）。</p>
+<p>tmux rename-window <new-name></new-name></p>
+<h5 id="窗口快捷键"><a href="#窗口快捷键" class="headerlink" title="窗口快捷键"></a>窗口快捷键</h5><p>Ctrl+b c：创建一个新窗口，状态栏会显示多个窗口的信息。<br>Ctrl+b p：切换到上一个窗口（按照状态栏上的顺序）。<br>Ctrl+b n：切换到下一个窗口。<br>Ctrl+b <number>：切换到指定编号的窗口，其中的<number>是状态栏上的窗口编号。<br>Ctrl+b w：从列表中选择窗口。<br>Ctrl+b ,：窗口重命名。</number></number></p>
+<h4 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h4><p>列出所有快捷键，及其对应的 Tmux 命令</p>
+<p>tmux list-keys</p>
+<p>列出所有 Tmux 命令及其参数</p>
+<p>tmux list-commands</p>
+<p>列出当前所有 Tmux 会话的信息</p>
+<p>tmux info</p>
+<p>重新加载当前的 Tmux 配置</p>
+<p>tmux source-file ~&#x2F;.tmux.conf</p>
+<p>帮助命令的快捷键是<code>Ctrl+b ?</code> ，esc键或者q退出</p>
+]]></content>
+      <tags>
+        <tag>Tmux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux操作系统</title>
     <url>/2023/10/07/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h3 id="物理机安装linux"><a href="#物理机安装linux" class="headerlink" title="物理机安装linux"></a>物理机安装linux</h3><p><a href="https://blog.csdn.net/qq_41606722/article/details/118915734">电脑直接安装Linux系统（物理机安装Linux系统）_电脑可以直接装linux系统吗-CSDN博客</a></p>
@@ -412,106 +459,6 @@
 ]]></content>
       <tags>
         <tag>学习计划</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Tmux使用</title>
-    <url>/2023/07/05/Tmux%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="Tmux使用"><a href="#Tmux使用" class="headerlink" title="Tmux使用"></a>Tmux使用</h2><blockquote>
-<p>参考链接：<a href="https://cloud.tencent.com/developer/article/1526675">可能是东半球最全面易懂的 Tmux 使用教程！( 强烈建议收藏 )-腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
-</blockquote>
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>tmux</p>
-<h4 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h4><p> ctrl+d或者exit</p>
-<h4 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h4><span id="more"></span>
-
-<h5 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h5><p>tmux new -s 编号或名称</p>
-<h5 id="分离会话"><a href="#分离会话" class="headerlink" title="分离会话"></a>分离会话</h5><p>tmux detach</p>
-<h5 id="查看当前所有的-Tmux-会话"><a href="#查看当前所有的-Tmux-会话" class="headerlink" title="查看当前所有的 Tmux 会话"></a>查看当前所有的 Tmux 会话</h5><p>tmux ls</p>
-<p>或者</p>
-<p>tmux list-session</p>
-<h5 id="接入会话"><a href="#接入会话" class="headerlink" title="接入会话"></a>接入会话</h5><p>tmux attach -t 编号或名称</p>
-<h5 id="杀死会话"><a href="#杀死会话" class="headerlink" title="杀死会话"></a>杀死会话</h5><p>tmux kill-session -t 编号或名称</p>
-<h5 id="切换会话"><a href="#切换会话" class="headerlink" title="切换会话"></a>切换会话</h5><p>tmux switch -t 编号或名称</p>
-<h5 id="重命名会话"><a href="#重命名会话" class="headerlink" title="重命名会话"></a>重命名会话</h5><p>tmux rename-session -t 0 <new-name><br>上面命令将0号会话重命名。</new-name></p>
-<h5 id="会话快捷键"><a href="#会话快捷键" class="headerlink" title="会话快捷键"></a>会话快捷键</h5><ul>
-<li><code>Ctrl+b d</code>：分离当前会话。</li>
-<li><code>Ctrl+b s</code>：列出所有会话。</li>
-<li><code>Ctrl+b $</code>：重命名当前会话。</li>
-</ul>
-<h4 id="窗格管理"><a href="#窗格管理" class="headerlink" title="窗格管理"></a>窗格管理</h4><h5 id="划分上下两个窗格"><a href="#划分上下两个窗格" class="headerlink" title="划分上下两个窗格"></a>划分上下两个窗格</h5><p>tmux split-window</p>
-<h5 id="划分左右两个窗格"><a href="#划分左右两个窗格" class="headerlink" title="划分左右两个窗格"></a>划分左右两个窗格</h5><p>tmux split-window -h</p>
-<h5 id="光标切换到上方窗格"><a href="#光标切换到上方窗格" class="headerlink" title="光标切换到上方窗格"></a>光标切换到上方窗格</h5><p>tmux select-pane -U</p>
-<h5 id="光标切换到下方窗格"><a href="#光标切换到下方窗格" class="headerlink" title="光标切换到下方窗格"></a>光标切换到下方窗格</h5><p>tmux select-pane -D</p>
-<h5 id="光标切换到左边窗格"><a href="#光标切换到左边窗格" class="headerlink" title="光标切换到左边窗格"></a>光标切换到左边窗格</h5><p>tmux select-pane -L</p>
-<h5 id="光标切换到右边窗格"><a href="#光标切换到右边窗格" class="headerlink" title="光标切换到右边窗格"></a>光标切换到右边窗格</h5><p>tmux select-pane -R</p>
-<h5 id="窗格上移"><a href="#窗格上移" class="headerlink" title="窗格上移"></a>窗格上移</h5><p>tmux swap-pane -U</p>
-<h5 id="窗格下移"><a href="#窗格下移" class="headerlink" title="窗格下移"></a>窗格下移</h5><p>tmux swap-pane -D</p>
-<h5 id="窗格快捷键"><a href="#窗格快捷键" class="headerlink" title="窗格快捷键"></a>窗格快捷键</h5><p>Ctrl+b %：划分左右两个窗格。<br>Ctrl+b “：划分上下两个窗格。<br>Ctrl+b <arrow key>：光标切换到其他窗格。<arrow key>是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键↓。<br>Ctrl+b ;：光标切换到上一个窗格。<br>Ctrl+b o：光标切换到下一个窗格。<br>Ctrl+b {：当前窗格与上一个窗格交换位置。<br>Ctrl+b }：当前窗格与下一个窗格交换位置。<br>Ctrl+b Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。<br>Ctrl+b Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。<br>Ctrl+b x：关闭当前窗格。<br>Ctrl+b !：将当前窗格拆分为一个独立窗口。<br>Ctrl+b z：当前窗格全屏显示，再使用一次会变回原来大小。<br>Ctrl+b Ctrl+<arrow key>：按箭头方向调整窗格大小。<br>Ctrl+b q：显示窗格编号。</arrow></arrow></arrow></p>
-<h4 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h4><h5 id="新建窗口"><a href="#新建窗口" class="headerlink" title="新建窗口"></a>新建窗口</h5><p>tmux new-window</p>
-<p>新建一个指定名称的窗口</p>
-<p>tmux new-window -n <window-name></window-name></p>
-<h5 id="切换窗口"><a href="#切换窗口" class="headerlink" title="切换窗口"></a>切换窗口</h5><p>tmux select-window命令用来切换窗口。</p>
-<p>切换到指定编号的窗口</p>
-<p>tmux select-window -t <window-number></window-number></p>
-<p>切换到指定名称的窗口</p>
-<p>tmux select-window -t <window-name></window-name></p>
-<h5 id="重命名窗口"><a href="#重命名窗口" class="headerlink" title="重命名窗口"></a>重命名窗口</h5><p>tmux rename-window命令用于为当前窗口起名（或重命名）。</p>
-<p>tmux rename-window <new-name></new-name></p>
-<h5 id="窗口快捷键"><a href="#窗口快捷键" class="headerlink" title="窗口快捷键"></a>窗口快捷键</h5><p>Ctrl+b c：创建一个新窗口，状态栏会显示多个窗口的信息。<br>Ctrl+b p：切换到上一个窗口（按照状态栏上的顺序）。<br>Ctrl+b n：切换到下一个窗口。<br>Ctrl+b <number>：切换到指定编号的窗口，其中的<number>是状态栏上的窗口编号。<br>Ctrl+b w：从列表中选择窗口。<br>Ctrl+b ,：窗口重命名。</number></number></p>
-<h4 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h4><p>列出所有快捷键，及其对应的 Tmux 命令</p>
-<p>tmux list-keys</p>
-<p>列出所有 Tmux 命令及其参数</p>
-<p>tmux list-commands</p>
-<p>列出当前所有 Tmux 会话的信息</p>
-<p>tmux info</p>
-<p>重新加载当前的 Tmux 配置</p>
-<p>tmux source-file ~&#x2F;.tmux.conf</p>
-<p>帮助命令的快捷键是<code>Ctrl+b ?</code> ，esc键或者q退出</p>
-]]></content>
-      <tags>
-        <tag>Tmux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos离线包制作</title>
-    <url>/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="centos离线包制作-docker安装"><a href="#centos离线包制作-docker安装" class="headerlink" title="centos离线包制作+docker安装"></a>centos离线包制作+docker安装</h3><p><a href="https://cubesec.yuque.com/staff-qa9e6n/qiiowe/kzfbwfeylexd9cik">陈谊桦+第一次作业+20231114 (yuque.com)</a></p>
-<span id="more"></span>
-
-<h4 id="在docker中实现离线安装nmap"><a href="#在docker中实现离线安装nmap" class="headerlink" title="在docker中实现离线安装nmap"></a>在docker中实现离线安装nmap</h4><h5 id="下载CentOS镜像"><a href="#下载CentOS镜像" class="headerlink" title="下载CentOS镜像"></a>下载CentOS镜像</h5><h5 id="运行Docker容器并映射宿主机上的-root-tmp目录到容器内的-tmp-tmp1目录"><a href="#运行Docker容器并映射宿主机上的-root-tmp目录到容器内的-tmp-tmp1目录" class="headerlink" title="运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录"></a>运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录</h5><h5 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113170625489.png" class title="image-20231113170625489">
-
-<h5 id="在容器内更新源"><a href="#在容器内更新源" class="headerlink" title="在容器内更新源"></a>在容器内更新源</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172251123.png" class title="image-20231113172251123">
-
-<h5 id="开启-yum-的缓存功能"><a href="#开启-yum-的缓存功能" class="headerlink" title="开启 yum 的缓存功能"></a>开启 yum 的缓存功能</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172231486.png" class title="image-20231113172231486">
-
-<h5 id="安装nmap"><a href="#安装nmap" class="headerlink" title="安装nmap"></a>安装nmap</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114114355749.png" class title="image-20231114114355749">
-
-<h5 id="去到nmap的安装目录下打包nmap包"><a href="#去到nmap的安装目录下打包nmap包" class="headerlink" title="去到nmap的安装目录下打包nmap包"></a>去到nmap的安装目录下打包nmap包</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150742475.png" class title="image-20231114150742475">
-
-<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150800345.png" class title="image-20231114150800345">
-
-<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150812438.png" class title="image-20231114150812438">
-
-<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150906213.png" class title="image-20231114150906213">
-
-<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151134199.png" class title="image-20231114151134199">
-
-<h5 id="在-tmp-tmp1下新建nmap文件夹"><a href="#在-tmp-tmp1下新建nmap文件夹" class="headerlink" title="在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹"></a>在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹</h5><h5 id="将打包好的nmap包移动到-tmp-tmp1-nmap"><a href="#将打包好的nmap包移动到-tmp-tmp1-nmap" class="headerlink" title="将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap"></a>将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151200106.png" class title="image-20231114151200106">
-
-<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151215872.png" class title="image-20231114151215872">
-
-<h5 id="将nmap-tar-gz文件从Docker容器复制到宿主机的根目录下"><a href="#将nmap-tar-gz文件从Docker容器复制到宿主机的根目录下" class="headerlink" title="将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下"></a>将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151404265.png" class title="image-20231114151404265">
-
-<h4 id="在linux系统中安装docker"><a href="#在linux系统中安装docker" class="headerlink" title="在linux系统中安装docker"></a>在linux系统中安装docker</h4><h5 id="卸载旧版本docker-如果之前没有装过docker可以忽略"><a href="#卸载旧版本docker-如果之前没有装过docker可以忽略" class="headerlink" title="卸载旧版本docker(如果之前没有装过docker可以忽略)"></a>卸载旧版本docker(如果之前没有装过docker可以忽略)</h5><h5 id="安装-yum-utils-包"><a href="#安装-yum-utils-包" class="headerlink" title="安装 yum-utils 包"></a>安装 yum-utils 包</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152542284.png" class title="image-20231114152542284">
-
-<h5 id="配置稳定源"><a href="#配置稳定源" class="headerlink" title="配置稳定源"></a>配置稳定源</h5><h5 id="更新一下yum缓存"><a href="#更新一下yum缓存" class="headerlink" title="更新一下yum缓存"></a>更新一下yum缓存</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152620031.png" class title="image-20231114152620031">
-
-<h5 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152658453.png" class title="image-20231114152658453">
-
-<h5 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114154145888.png" class title="image-20231114154145888">
-]]></content>
-      <tags>
         <tag>Linux</tag>
       </tags>
   </entry>
@@ -723,11 +670,12 @@
 <blockquote>
 <p>psql -U postgres -d vrp -f &#x2F;var&#x2F;lib&#x2F;postgresql&#x2F;data&#x2F;tmp&#x2F;dump.sql   恢复之前备份的表</p>
 </blockquote>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2022/png/26326708/1658200544449-80ce6bf5-8900-40c5-8b9c-507073f02807.png" alt="img"></p>
+<img data-src="/2023/06/28/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E8%BF%98%E5%8E%9F/1658200544449-80ce6bf5-8900-40c5-8b9c-507073f02807-17004625507148.png" class title="1658200544449-80ce6bf5-8900-40c5-8b9c-507073f02807-17004625507148">
+
 <blockquote>
 <p>psql -U postgres -d vrp -f &#x2F;var&#x2F;lib&#x2F;postgresql&#x2F;data&#x2F;tmp&#x2F;schema.sql  恢复之前备份的表结构</p>
 </blockquote>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2022/png/26326708/1658200500342-9a1eeaeb-353d-4112-a679-18c4e597fc2a.png" alt="img"></p>
+<img data-src="/2023/06/28/postgresql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E8%BF%98%E5%8E%9F/1658200500342-9a1eeaeb-353d-4112-a679-18c4e597fc2a-17004625507149.png" class title="1658200500342-9a1eeaeb-353d-4112-a679-18c4e597fc2a-17004625507149">
 ]]></content>
       <tags>
         <tag>学习计划</tag>
@@ -1105,6 +1053,48 @@
       </tags>
   </entry>
   <entry>
+    <title>centos离线包制作</title>
+    <url>/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="centos离线包制作-docker安装"><a href="#centos离线包制作-docker安装" class="headerlink" title="centos离线包制作+docker安装"></a>centos离线包制作+docker安装</h3><p><a href="https://cubesec.yuque.com/staff-qa9e6n/qiiowe/kzfbwfeylexd9cik">陈谊桦+第一次作业+20231114 (yuque.com)</a></p>
+<span id="more"></span>
+
+<h4 id="在docker中实现离线安装nmap"><a href="#在docker中实现离线安装nmap" class="headerlink" title="在docker中实现离线安装nmap"></a>在docker中实现离线安装nmap</h4><h5 id="下载CentOS镜像"><a href="#下载CentOS镜像" class="headerlink" title="下载CentOS镜像"></a>下载CentOS镜像</h5><h5 id="运行Docker容器并映射宿主机上的-root-tmp目录到容器内的-tmp-tmp1目录"><a href="#运行Docker容器并映射宿主机上的-root-tmp目录到容器内的-tmp-tmp1目录" class="headerlink" title="运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录"></a>运行Docker容器并映射宿主机上的&#x2F;root&#x2F;tmp目录到容器内的&#x2F;tmp&#x2F;tmp1目录</h5><h5 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113170625489.png" class title="image-20231113170625489">
+
+<h5 id="在容器内更新源"><a href="#在容器内更新源" class="headerlink" title="在容器内更新源"></a>在容器内更新源</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172251123.png" class title="image-20231113172251123">
+
+<h5 id="开启-yum-的缓存功能"><a href="#开启-yum-的缓存功能" class="headerlink" title="开启 yum 的缓存功能"></a>开启 yum 的缓存功能</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231113172231486.png" class title="image-20231113172231486">
+
+<h5 id="安装nmap"><a href="#安装nmap" class="headerlink" title="安装nmap"></a>安装nmap</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114114355749.png" class title="image-20231114114355749">
+
+<h5 id="去到nmap的安装目录下打包nmap包"><a href="#去到nmap的安装目录下打包nmap包" class="headerlink" title="去到nmap的安装目录下打包nmap包"></a>去到nmap的安装目录下打包nmap包</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150742475.png" class title="image-20231114150742475">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150800345.png" class title="image-20231114150800345">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150812438.png" class title="image-20231114150812438">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114150906213.png" class title="image-20231114150906213">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151134199.png" class title="image-20231114151134199">
+
+<h5 id="在-tmp-tmp1下新建nmap文件夹"><a href="#在-tmp-tmp1下新建nmap文件夹" class="headerlink" title="在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹"></a>在&#x2F;tmp&#x2F;tmp1下新建nmap文件夹</h5><h5 id="将打包好的nmap包移动到-tmp-tmp1-nmap"><a href="#将打包好的nmap包移动到-tmp-tmp1-nmap" class="headerlink" title="将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap"></a>将打包好的nmap包移动到&#x2F;tmp&#x2F;tmp1&#x2F;nmap</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151200106.png" class title="image-20231114151200106">
+
+<img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151215872.png" class title="image-20231114151215872">
+
+<h5 id="将nmap-tar-gz文件从Docker容器复制到宿主机的根目录下"><a href="#将nmap-tar-gz文件从Docker容器复制到宿主机的根目录下" class="headerlink" title="将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下"></a>将nmap.tar.gz文件从Docker容器复制到宿主机的根目录下</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114151404265.png" class title="image-20231114151404265">
+
+<h4 id="在linux系统中安装docker"><a href="#在linux系统中安装docker" class="headerlink" title="在linux系统中安装docker"></a>在linux系统中安装docker</h4><h5 id="卸载旧版本docker-如果之前没有装过docker可以忽略"><a href="#卸载旧版本docker-如果之前没有装过docker可以忽略" class="headerlink" title="卸载旧版本docker(如果之前没有装过docker可以忽略)"></a>卸载旧版本docker(如果之前没有装过docker可以忽略)</h5><h5 id="安装-yum-utils-包"><a href="#安装-yum-utils-包" class="headerlink" title="安装 yum-utils 包"></a>安装 yum-utils 包</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152542284.png" class title="image-20231114152542284">
+
+<h5 id="配置稳定源"><a href="#配置稳定源" class="headerlink" title="配置稳定源"></a>配置稳定源</h5><h5 id="更新一下yum缓存"><a href="#更新一下yum缓存" class="headerlink" title="更新一下yum缓存"></a>更新一下yum缓存</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152620031.png" class title="image-20231114152620031">
+
+<h5 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114152658453.png" class title="image-20231114152658453">
+
+<h5 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h5><img data-src="/2023/11/13/centos%E7%A6%BB%E7%BA%BF%E5%8C%85%E5%88%B6%E4%BD%9C/image-20231114154145888.png" class title="image-20231114154145888">
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>网络及协议</title>
     <url>/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/</url>
     <content><![CDATA[<h3 id="linux-Windows-IP配置"><a href="#linux-Windows-IP配置" class="headerlink" title="linux&#x2F;Windows IP配置"></a>linux&#x2F;Windows IP配置</h3><p><a href="https://blog.csdn.net/weixin_35909607/article/details/116824527#:~:text=1">linux和windows改ip地址,Linux和Windows下IP地址设置_羊鱼鸡的博客-CSDN博客</a></p>
@@ -1124,7 +1114,7 @@
 <img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/9c6d7d2aaf25fe01c0a3262103415408.png" class title="9c6d7d2aaf25fe01c0a3262103415408.png">
 
 <ol start="3">
-<li><p>编辑完后，保存退出(:w保存， ：q退出)。</p>
+<li><p>编辑完后，保存退出。</p>
 </li>
 <li><p>重启网络服务。service network restart或&#x2F;etc&#x2F;init.d&#x2F;network restart。即可。</p>
 </li>
@@ -1246,34 +1236,56 @@
 <li>多路由协议：可能是路由引入产生的问题。</li>
 </ul>
 <h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><p>nmap是一款非常强大的主机发现和端口扫描工具，而且nmap运用自带的脚本，还能完成漏洞检测，同时支持多平台。</p>
-<h5 id="nmap常用命令"><a href="#nmap常用命令" class="headerlink" title="nmap常用命令"></a>nmap常用命令</h5><h5 id="实例演示-发现主机"><a href="#实例演示-发现主机" class="headerlink" title="实例演示-发现主机"></a>实例演示-发现主机</h5><p>扫描指定IP地址(ping 扫描)</p>
+<h5 id="nmap常用命令"><a href="#nmap常用命令" class="headerlink" title="nmap常用命令"></a>nmap常用命令</h5><h5 id="实例演示-发现主机"><a href="#实例演示-发现主机" class="headerlink" title="实例演示-发现主机"></a>实例演示-发现主机</h5><ul>
+<li>扫描指定IP地址(ping 扫描)</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sn 192.168.3.74</span><br></pre></td></tr></table></figure>
 
-<p>提取文件中的IP地址</p>
+<ul>
+<li>提取文件中的IP地址</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -iL target.txt</span><br></pre></td></tr></table></figure>
 
-<p>扫描整个网段</p>
+<ul>
+<li>扫描整个网段</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap 192.168.3.1/24</span><br></pre></td></tr></table></figure>
 
-<h5 id="实例演示-端口发现"><a href="#实例演示-端口发现" class="headerlink" title="实例演示-端口发现"></a>实例演示-端口发现</h5><p>扫描主机的指定端口</p>
+<h5 id="实例演示-端口发现"><a href="#实例演示-端口发现" class="headerlink" title="实例演示-端口发现"></a>实例演示-端口发现</h5><ul>
+<li>目标机禁用ping，绕过ping扫描</li>
+</ul>
+<p>-Pn: 将所有主机视为在在线，跳过主机发现</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -Pn 192.168.96.4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>扫描主机的指定端口</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap 192.168.3.74 -p80</span><br></pre></td></tr></table></figure>
 
-
-<p>使用TCP的SYN进行扫描（半开放扫描，只发送SYN，如果服务器回复SYN，ACK。证明端口开放，不建立完整连接）</p>
+<ul>
+<li>使用TCP的SYN进行扫描（半开放扫描，只发送SYN，如果服务器回复SYN，ACK。证明端口开放，不建立完整连接）</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sS  192.168.3.74</span><br></pre></td></tr></table></figure>
 
-<p>使用TCP进行扫描（默认nmap扫描方式）</p>
+<ul>
+<li>使用TCP进行扫描（默认nmap扫描方式）</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sT  192.168.3.74</span><br></pre></td></tr></table></figure>
 
-<p>使用UDP进行扫描（扫描UDP开放的端口）</p>
+<ul>
+<li>使用UDP进行扫描（扫描UDP开放的端口）</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sU 192.168.3.74</span><br></pre></td></tr></table></figure>
 
-<p>使用FIN扫描</p>
-<p>有的时候TCP SYN不是最佳的扫描默认，目标主机可能有IDS&#x2F;IPS系统的存在，防火墙可能过滤掉SYN数据包。而发送一个</p>
-<p>FIN标志的数据包不需要完成TCP的握手。</p>
+<ul>
+<li>使用FIN扫描</li>
+</ul>
+<p>有的时候TCP SYN不是最佳的扫描默认，目标主机可能有IDS&#x2F;IPS系统的存在，防火墙可能过滤掉SYN数据包。而发送一个FIN标志的数据包不需要完成TCP的握手。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sF  192.168.3.74</span><br></pre></td></tr></table></figure>
 
-<p>idle扫描（需要指定另外一台主机IP地址，并且目标主机的IPID是递增的）</p>
+<ul>
+<li>idle扫描（需要指定另外一台主机IP地址，并且目标主机的IPID是递增的）</li>
+</ul>
 <p>idlescan是一种理想的扫描方式，它使用另一台网络上的主机替你发送数据包，从而隐藏自己。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sI  192.168.3.227 192.168.3.74</span><br></pre></td></tr></table></figure>
 
@@ -1283,6 +1295,7 @@
 
 <h5 id="实例应用"><a href="#实例应用" class="headerlink" title="实例应用"></a>实例应用</h5><p><a href="https://www.cnblogs.com/weihua2616/p/6599629.html">扫描工具——Nmap用法详解 - 毛卫华 - 博客园 (cnblogs.com)</a></p>
 <p><a href="https://blog.csdn.net/smli_ng/article/details/105964486">nmap详细使用教程_nmap使用教程-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/qq_37964989/article/details/84330693">Nmap常用命令总结_nmap 命令-CSDN博客</a></p>
 <h4 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h4><p>telnet经常用于测试网络及端口占用情况。具体使用如下：</p>
 <p>测试端口命令：</p>
 <p>telnet host 端口</p>
@@ -1360,16 +1373,16 @@
 <p>curl -o test.html <a href="https://www.qianzhigang.com/archives/880.html">https://www.qianzhigang.com/archives/880.html</a></p>
 </blockquote>
 <p>-o: 该参数将文件保存为命令行中默认的文件名保存文件到本地</p>
-<h3 id="测试Linux服务器能否连通外网的命令："><a href="#测试Linux服务器能否连通外网的命令：" class="headerlink" title="测试Linux服务器能否连通外网的命令："></a>测试Linux服务器能否连通外网的命令：</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ping www.baidu.com</span><br><span class="line"></span><br><span class="line">curl -I www.baidu.com</span><br><span class="line"></span><br><span class="line">traceroute www.baidu.com</span><br></pre></td></tr></table></figure>
+<h3 id="测试Linux服务器能否连通外网的命令："><a href="#测试Linux服务器能否连通外网的命令：" class="headerlink" title="测试Linux服务器能否连通外网的命令："></a>测试Linux服务器能否连通外网的命令：</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ping www.baidu.com</span><br><span class="line"></span><br><span class="line">curl ip:端口</span><br><span class="line"></span><br><span class="line">traceroute www.baidu.com</span><br><span class="line"></span><br><span class="line">telnet ip 端口</span><br></pre></td></tr></table></figure>
 
 <h3 id="iptables-学习"><a href="#iptables-学习" class="headerlink" title="iptables 学习"></a>iptables 学习</h3><h4 id="iptables简介"><a href="#iptables简介" class="headerlink" title="iptables简介"></a>iptables简介</h4><p>iptables 是集成在 Linux 内核中的包过滤防火墙系统。使用 iptables 可以添加、删除具体的过滤规则，iptables 默认维护着 4 个表和 5 个链，所有的防火墙策略规则都被分别写入这些表与链中。</p>
-<p>“<strong>四表</strong>”是指 iptables 的功能，默认的 iptable s规则表有 filter 表（过滤规则表）、nat 表（地址转换规则表）、mangle（修改数据标记位规则表）、raw（跟踪数据表规则表）：</p>
+<p>“<strong>四表</strong>”是指 iptables 的功能，默认的 iptables规则表有 filter 表（过滤规则表）、nat 表（地址转换规则表）、mangle（修改数据标记位规则表）、raw（跟踪数据表规则表）：</p>
 <p>filter 表：控制数据包是否允许进出及转发，可以控制的链路有 INPUT、FORWARD 和 OUTPUT。<br>nat 表：控制数据包中地址转换，可以控制的链路有 PREROUTING、INPUT、OUTPUT 和 POSTROUTING。<br>mangle：修改数据包中的原数据，可以控制的链路有 PREROUTING、INPUT、OUTPUT、FORWARD 和 POSTROUTING。<br>raw：控制 nat 表中连接追踪机制的启用状况，可以控制的链路有 PREROUTING、OUTPUT。</p>
 <p>“<strong>五链</strong>”是指内核中控制网络的 NetFilter 定义的 5 个规则链。每个规则表中包含多个数据链：INPUT（入站数据过滤）、OUTPUT（出站数据过滤）、FORWARD（转发数据过滤）、PREROUTING（路由前过滤）和POSTROUTING（路由后过滤），防火墙规则需要写入到这些具体的数据链中。</p>
 <p>Linux 防火墙的过滤框架，如图所示。</p>
 <img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/ce49aedfc45c82ef6a6f261c82af07a4.gif" class title="Linux命令">
 
-<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ5OTQ2OTE2,size_16,color_FFFFFF,t_70#pic_center.png" class title="在这里插入图片描述">
+<img data-src="/2023/10/11/%E7%BD%91%E7%BB%9C%E5%8F%8A%E5%8D%8F%E8%AE%AE/1.png" class width="1">
 
 <p>可以看出，如果是外部主机发送数据包给防火墙本机，数据将会经过 PREROUTING 链与 INPUT 链；如果是防火墙本机发送数据包到外部主机，数据将会经过 OUTPUT 链与 POSTROUTING 链；如果防火墙作为路由负责转发数据，则数据将经过 PREROUTING 链、FORWARD 链以及 POSTROUTING 链。</p>
 <h4 id="命令与扩展"><a href="#命令与扩展" class="headerlink" title="命令与扩展"></a>命令与扩展</h4><ul>
